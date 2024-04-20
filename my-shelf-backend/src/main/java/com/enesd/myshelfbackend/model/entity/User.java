@@ -24,6 +24,9 @@ public class User implements UserDetails {
     @Column(name = "user_name", nullable = false, unique = true)
     private String userName;
 
+    @Column(name = "password")
+    private String password;
+
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id", nullable = false))
