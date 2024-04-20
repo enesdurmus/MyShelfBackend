@@ -33,7 +33,7 @@ public class AuthService {
         defaultRoles.add(RoleType.ROLE_USER);
 
         User user = new User();
-        user.setUserName(signUpRequest.getUsername());
+        user.setUsername(signUpRequest.getUsername());
         user.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
         user.setRoles(defaultRoles);
         user = userRepository.save(user);

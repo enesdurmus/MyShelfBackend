@@ -4,6 +4,7 @@ import com.enesd.myshelfbackend.enums.RoleType;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
@@ -22,7 +23,7 @@ public class User implements UserDetails {
     private UUID id;
 
     @Column(name = "user_name", nullable = false, unique = true)
-    private String userName;
+    private String username;
 
     @Column(name = "password")
     private String password;
@@ -35,36 +36,30 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }
-
-    @Override
-    public String getPassword() {
-        return null;
-    }
-
-    @Override
-    public String getUsername() {
-        return null;
+        Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
+        for (RoleType roleType : roles) {
+            grantedAuthorities.add(new SimpleGrantedAuthority(roleType.toString()));
+        }
+        return grantedAuthorities;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 }
