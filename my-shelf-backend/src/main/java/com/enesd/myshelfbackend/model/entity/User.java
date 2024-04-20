@@ -20,6 +20,9 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @Column(name = "user_name", nullable = false, unique = true)
+    private String userName;
+
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id", nullable = false))
