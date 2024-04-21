@@ -1,4 +1,4 @@
-package com.enesd.myshelfbackend.model.entity;
+package com.enesd.myshelfbackend.model.entities;
 
 import com.enesd.myshelfbackend.enums.RoleType;
 import jakarta.persistence.*;
@@ -33,6 +33,9 @@ public class User implements UserDetails {
             joinColumns = @JoinColumn(name = "user_id", nullable = false))
     @Column(name = "role_type")
     private Set<RoleType> roles = new HashSet<>();
+
+    @OneToMany(mappedBy = "userFriendId.userId", fetch = FetchType.LAZY)
+    private Set<UserFriends> userFriends;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

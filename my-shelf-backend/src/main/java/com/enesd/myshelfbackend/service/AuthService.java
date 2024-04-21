@@ -3,7 +3,7 @@ package com.enesd.myshelfbackend.service;
 import com.enesd.myshelfbackend.dto.SignInDTO;
 import com.enesd.myshelfbackend.dto.UserDTO;
 import com.enesd.myshelfbackend.enums.RoleType;
-import com.enesd.myshelfbackend.model.entity.User;
+import com.enesd.myshelfbackend.model.entities.User;
 import com.enesd.myshelfbackend.model.request.SignInRequest;
 import com.enesd.myshelfbackend.model.request.SignUpRequest;
 import com.enesd.myshelfbackend.repository.UserRepository;
