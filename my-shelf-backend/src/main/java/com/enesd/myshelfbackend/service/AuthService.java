@@ -10,6 +10,7 @@ import com.enesd.myshelfbackend.repository.UserRepository;
 import com.enesd.myshelfbackend.security.jwt.JwtUtil;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,6 +25,7 @@ import java.util.Set;
 public class AuthService {
 
     private final UserRepository userRepository;
+    private final AuthenticationManager authenticationManager;
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
     private final ModelMapper modelMapper;
@@ -46,7 +48,14 @@ public class AuthService {
         return new SignInDTO(userDTO, jwt);
     }
 
-    public void signIn(SignInRequest signInRequest) {
+    public SignInDTO signIn(SignInRequest signInRequest) {
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(signInRequest.getUsername(), signInRequest.getPassword()));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        User user = (User) authentication.getPrincipal();
 
+        String jwt = jwtUtil.generateToken(user);
+        UserDTO userDTO = modelMapper.map(user, UserDTO.class);
+        return new SignInDTO(userDTO, jwt);
     }
 }

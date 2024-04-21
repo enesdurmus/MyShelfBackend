@@ -1,6 +1,7 @@
 package com.enesd.myshelfbackend.controller;
 
 import com.enesd.myshelfbackend.dto.SignInDTO;
+import com.enesd.myshelfbackend.model.request.SignInRequest;
 import com.enesd.myshelfbackend.model.request.SignUpRequest;
 import com.enesd.myshelfbackend.model.response.GenericResponse;
 import com.enesd.myshelfbackend.service.AuthService;
@@ -21,6 +22,12 @@ public class AuthController {
     @PostMapping("/user/signup")
     public GenericResponse signUp(@Validated @RequestBody SignUpRequest signUpRequest) {
         SignInDTO signInDTO = authService.signUp(signUpRequest);
+        return GenericResponse.success(signInDTO);
+    }
+
+    @PostMapping("/user/signin")
+    public GenericResponse signIn(@Validated @RequestBody SignInRequest signInRequest) {
+        SignInDTO signInDTO = authService.signIn(signInRequest);
         return GenericResponse.success(signInDTO);
     }
 }
