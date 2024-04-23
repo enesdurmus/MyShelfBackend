@@ -9,5 +9,5 @@ import java.util.UUID;
 
 public interface UserBookWishlistRepository extends JpaRepository<UserBookWishlist, UserBookWishlistId> {
 
-    List<UserBookWishlist> findAllByIdUserId(UUID userId);
+    List<UserBookWishlist> findAllByUserId(UUID userId);
 }

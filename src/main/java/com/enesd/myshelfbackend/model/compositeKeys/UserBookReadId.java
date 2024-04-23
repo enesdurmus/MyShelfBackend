@@ -1,18 +1,17 @@
 package com.enesd.myshelfbackend.model.compositeKeys;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.UUID;
 
-@Embeddable
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserBookReadId implements Serializable {
-    @Column(name = "user_id")
     private UUID userId;
-
-    @Column(name = "book_id")
     private int bookId;
 }

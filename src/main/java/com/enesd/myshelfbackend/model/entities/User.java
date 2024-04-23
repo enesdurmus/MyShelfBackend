@@ -34,7 +34,7 @@ public class User implements UserDetails {
     @Column(name = "role_type")
     private Set<RoleType> roles = new HashSet<>();
 
-    @OneToMany(mappedBy = "userFriendId.userId", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "userId", fetch = FetchType.LAZY)
     private Set<UserFriend> userFriends;
 
     @Override
