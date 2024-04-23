@@ -72,7 +72,7 @@ public class JwtUtil {
         User user = new User();
         user.setId(userId);
         user.setRoles(roles);
-        return new UsernamePasswordAuthenticationToken(userId, user, user.getAuthorities());
+        return new UsernamePasswordAuthenticationToken(user, userId, user.getAuthorities());
     }
 
     private boolean isTokenExpired(String token) {
