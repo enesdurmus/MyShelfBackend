@@ -25,7 +25,7 @@ public class BookController {
         return ResponseEntity.ok(GenericResponse.success(bookService.searchRelatedBooks(searchText)));
     }
 
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<GenericResponse<Book>> findBookById(@RequestParam(required = true) int bookId) {
         return ResponseEntity.ok(GenericResponse.success(bookService.findBookById(bookId)));
     }

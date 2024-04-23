@@ -3,6 +3,7 @@ package com.enesd.myshelfbackend.service;
 import com.enesd.myshelfbackend.model.entities.Book;
 import com.enesd.myshelfbackend.model.entities.User;
 import com.enesd.myshelfbackend.repository.BookRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,6 @@ public class BookService {
     }
 
     public Book findBookById(int bookId) {
-        return bookRepository.findById(bookId).orElseThrow(RuntimeException::new);
+        return bookRepository.findById(bookId).orElseThrow(EntityNotFoundException::new);
     }
 }
