@@ -1,6 +1,7 @@
 package com.enesd.myshelfbackend.service;
 
 import com.enesd.myshelfbackend.model.entities.Book;
+import com.enesd.myshelfbackend.model.entities.User;
 import com.enesd.myshelfbackend.repository.BookRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
