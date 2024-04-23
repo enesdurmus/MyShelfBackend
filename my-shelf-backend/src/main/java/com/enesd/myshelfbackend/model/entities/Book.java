@@ -1,10 +1,10 @@
 package com.enesd.myshelfbackend.model.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
@@ -12,7 +12,10 @@ import lombok.Data;
 public class Book {
 
     @Id
-    @Column(name = "isbn")
+    @Column(name = "book_id")
+    private int Id;
+
+    @Column(name = "isbn", unique = true)
     private String isbn;
 
     @Column(name = "title")
@@ -30,8 +33,14 @@ public class Book {
     @Column(name = "page_number")
     private int pageNumber;
 
+    @Column(name = "description")
+    private String description;
+
     @Column(name = "publisher")
     private String publisher;
+
+    @Column(name = "similar_books")
+    private String[] similarBooks;
 
     @Column(name = "image_url")
     private String imageUrl;
@@ -44,4 +53,7 @@ public class Book {
 
     @Column(name = "publication_year")
     private String publicationYear;
+
+    @Column(name = "authors")
+    private int[] bookAuthors;
 }
