@@ -17,4 +17,8 @@ public class BookService {
     public List<Book> searchRelatedBooks(String searchText) {
         return bookRepository.findByTitleContaining(searchText);
     }
+
+    public Book findBookById(int bookId) {
+        return bookRepository.findById(bookId).orElseThrow(RuntimeException::new);
+    }
 }
