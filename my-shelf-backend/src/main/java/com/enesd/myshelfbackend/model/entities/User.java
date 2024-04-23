@@ -35,7 +35,7 @@ public class User implements UserDetails {
     private Set<RoleType> roles = new HashSet<>();
 
     @OneToMany(mappedBy = "userFriendId.userId", fetch = FetchType.LAZY)
-    private Set<UserFriends> userFriends;
+    private Set<UserFriend> userFriends;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

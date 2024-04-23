@@ -11,7 +11,7 @@ import java.time.Instant;
 @Entity
 @Data
 @Table(name = "user_friends")
-public class UserFriends {
+public class UserFriend {
 
     @EmbeddedId
     private UserFriendId userFriendId;
