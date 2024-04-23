@@ -26,8 +26,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
     private final JwtUtil jwtUtil;
 
-    private static final RequestMatcher requestMatcher = new AntPathRequestMatcher("/api/*/auth/**");
-    private static final RequestMatcher requestMatcher2 = new AntPathRequestMatcher("/api/**");
+    private static final RequestMatcher authMatcher = new AntPathRequestMatcher("/api/*/auth/**");
 
     private static final Logger logger = LoggerFactory.getLogger(JwtAuthorizationFilter.class);
 
@@ -59,6 +58,6 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
-        return requestMatcher.matches(request) || !requestMatcher2.matches(request);
+        return authMatcher.matches(request);
     }
 }
