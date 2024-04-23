@@ -12,22 +12,27 @@ import com.enesd.myshelfbackend.repository.UserBookWishlistRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class UserBookReadService {
 
-    private final BookRepository bookRepository;
-    private final UserBookReadRepository userBookReadRepositoryr;
+    private final UserBookReadRepository userBookReadRepository;
 
     public void addBookToUserReads(User user, int bookId) {
-        Book book = bookRepository.getReferenceById(bookId);
-
         UserBookReadId userBookReadId = new UserBookReadId();
         userBookReadId.setUserId(user.getId());
         userBookReadId.setBookId(bookId);
 
         UserBookRead userBookRead = new UserBookRead();
-        userBookRead.setUserBookReadId(userBookReadId);
-        userBookReadRepositoryr.save(userBookRead);
+        userBookRead.setId(userBookReadId);
+        userBookRead.setCreatedAt(Instant.now());
+        userBookReadRepository.save(userBookRead);
+    }
+
+    public List<UserBookRead> getUserReadBooks(User user) {
+        return userBookReadRepository.findAllByIdUserId(user.getId());
     }
 }

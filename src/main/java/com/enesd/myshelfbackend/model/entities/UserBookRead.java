@@ -1,10 +1,7 @@
 package com.enesd.myshelfbackend.model.entities;
 
 import com.enesd.myshelfbackend.model.compositeKeys.UserBookReadId;
-import jakarta.persistence.Column;
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -16,7 +13,17 @@ import java.time.Instant;
 public class UserBookRead {
 
     @EmbeddedId
-    private UserBookReadId userBookReadId;
+    private UserBookReadId id;
+
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @MapsId("userId")
+//    @JoinColumn(name = "user_id")
+//    private User user;
+//
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @MapsId("bookId")
+//    @JoinColumn(name = "book_id")
+//    private Book book;
 
     @CreationTimestamp
     @Column(name = "created_at")

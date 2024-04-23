@@ -14,23 +14,9 @@ import org.springframework.web.bind.annotation.*;
 public class BookController {
 
     private final BookService bookService;
-    private final UserBookReadService userBookReadService;
 
     @GetMapping("/search")
     public GenericResponse searchRelatedBooks(@RequestParam String searchText) {
         return GenericResponse.success(bookService.searchRelatedBooks(searchText));
-    }
-
-    @PostMapping("/add/wishlist")
-    public GenericResponse addBookToWishlist(@RequestParam int bookId) {
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return GenericResponse.success(null);
-    }
-
-    @PostMapping("/add/read")
-    public GenericResponse addBookToRead(@RequestParam int bookId) {
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        userBookReadService.addBookToUserReads(user, bookId);
-        return GenericResponse.success(null);
     }
 }
