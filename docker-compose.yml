@@ -13,7 +13,7 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres/compose-postgres
       SPRING_DATASOURCE_USERNAME: compose-postgres
       SPRING_DATASOURCE_PASSWORD: compose-postgres
-      SPRING_REDIS_DATA_HOST: redis-cache
+      SPRING_REDIS_DATA_HOST: redis
       SPRING_REDIS_DATA_PORT: 6379
     depends_on:
       - postgres
@@ -24,7 +24,7 @@ services:
 
   redis:
     image: 'redis:latest'
-    container_name: redis-cache
+    container_name: redis
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
       - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
