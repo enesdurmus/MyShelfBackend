@@ -13,8 +13,8 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres/compose-postgres
       SPRING_DATASOURCE_USERNAME: compose-postgres
       SPRING_DATASOURCE_PASSWORD: compose-postgres
-      SPRING_REDIS_HOST: redis-cache
-      SPRING_REDIS_PORT: 6379
+      SPRING_REDIS_DATA_HOST: redis-cache
+      SPRING_REDIS_DATA_PORT: 6379
     depends_on:
       - postgres
       - elasticsearch
