@@ -5,6 +5,7 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
+import org.springframework.data.redis.connection.RedisConfiguration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -21,9 +22,13 @@ public class RedisConfig {
     @Value("${cache.config.default.ttl}")
     private int defaultTtl;
 
+    @Value("${spring.data.redis.url}")
+    private String redisUri;
+
     @Bean
     public RedisConnectionFactory redisConnectionFactory() {
-        return new LettuceConnectionFactory();
+        RedisConfiguration redisConf = LettuceConnectionFactory.createRedisConfiguration(redisUri);
+        return new LettuceConnectionFactory(redisConf);
     }
 
     @Bean
@@ -41,11 +46,6 @@ public class RedisConfig {
 
     @Bean
     public RedisCacheConfiguration cacheConfiguration() {
-        return RedisCacheConfiguration
-                .defaultCacheConfig()
-                .entryTtl(Duration.ofMinutes(defaultTtl))
-                .disableCachingNullValues()
-                .serializeValuesWith(RedisSerializationContext.SerializationPair
-                        .fromSerializer(new GenericJackson2JsonRedisSerializer()));
+        return RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofMinutes(defaultTtl)).disableCachingNullValues().serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()));
     }
 }
