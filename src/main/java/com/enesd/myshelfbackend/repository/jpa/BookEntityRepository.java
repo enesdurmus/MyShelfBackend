@@ -1,7 +1,8 @@
-package com.enesd.myshelfbackend.repository;
+package com.enesd.myshelfbackend.repository.jpa;
 
 import com.enesd.myshelfbackend.model.entities.BookEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
