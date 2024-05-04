@@ -6,7 +6,7 @@ import com.enesd.myshelfbackend.enums.RoleType;
 import com.enesd.myshelfbackend.model.entities.User;
 import com.enesd.myshelfbackend.model.request.SignInRequest;
 import com.enesd.myshelfbackend.model.request.SignUpRequest;
-import com.enesd.myshelfbackend.repository.UserRepository;
+import com.enesd.myshelfbackend.repository.jpa.UserRepository;
 import com.enesd.myshelfbackend.security.jwt.JwtUtil;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;

@@ -2,7 +2,7 @@ package com.enesd.myshelfbackend.service;
 
 import com.enesd.myshelfbackend.model.entities.User;
 import com.enesd.myshelfbackend.model.entities.UserBookRead;
-import com.enesd.myshelfbackend.repository.UserBookReadRepository;
+import com.enesd.myshelfbackend.repository.jpa.UserBookReadRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

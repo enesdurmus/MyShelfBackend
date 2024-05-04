@@ -1,7 +1,7 @@
 package com.enesd.myshelfbackend.service;
 
 import com.enesd.myshelfbackend.model.entities.BookEntity;
-import com.enesd.myshelfbackend.repository.BookEntityRepository;
+import com.enesd.myshelfbackend.repository.jpa.BookEntityRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
