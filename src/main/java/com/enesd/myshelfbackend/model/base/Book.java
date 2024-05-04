@@ -8,7 +8,7 @@ import lombok.Data;
 @MappedSuperclass
 public class Book {
     @Id
-    private int Id;
+    private int id;
 
     private String isbn;
     private String title;
