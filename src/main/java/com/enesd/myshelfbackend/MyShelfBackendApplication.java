@@ -17,5 +17,4 @@ public class MyShelfBackendApplication {
     public static void main(String[] args) {
         SpringApplication.run(MyShelfBackendApplication.class, args);
     }
-
 }
