@@ -5,4 +5,5 @@ import com.enesd.myshelfbackend.repository.elasticsearch.custom.IBookDocumentRep
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 
 public interface BookDocumentRepository extends ElasticsearchRepository<BookDocument, Integer>, IBookDocumentRepositoryCustom {
+
 }

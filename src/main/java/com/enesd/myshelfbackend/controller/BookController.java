@@ -1,5 +1,7 @@
 package com.enesd.myshelfbackend.controller;
 
+import com.enesd.myshelfbackend.model.base.Book;
+import com.enesd.myshelfbackend.model.documents.BookDocument;
 import com.enesd.myshelfbackend.model.entities.BookEntity;
 import com.enesd.myshelfbackend.model.response.GenericResponse;
 import com.enesd.myshelfbackend.service.BookService;
@@ -17,8 +19,8 @@ public class BookController {
     private final BookService bookService;
 
     @GetMapping("/search")
-    public ResponseEntity<GenericResponse<List<BookEntity>>> searchRelatedBooks(@RequestParam String searchText) {
-        return ResponseEntity.ok(GenericResponse.success(bookService.searchRelatedBooks(searchText)));
+    public ResponseEntity<GenericResponse<List<BookDocument>>> searchRelatedBooks(@RequestParam String searchTerm) {
+        return ResponseEntity.ok(GenericResponse.success(bookService.searchRelatedBooks(searchTerm)));
     }
 
     @GetMapping("")
