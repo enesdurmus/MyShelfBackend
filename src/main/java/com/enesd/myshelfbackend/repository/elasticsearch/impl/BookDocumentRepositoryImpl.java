@@ -6,10 +6,17 @@ import com.enesd.myshelfbackend.repository.elasticsearch.custom.IBookDocumentRep
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.elasticsearch.client.elc.NativeQuery;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.SearchHits;
+import org.springframework.data.elasticsearch.core.SearchHitsIterator;
+import org.springframework.data.elasticsearch.core.mapping.IndexCoordinates;
 import org.springframework.data.elasticsearch.core.query.*;
+
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
 
 @AllArgsConstructor
 class BookDocumentRepositoryImpl implements IBookDocumentRepositoryCustom {
@@ -17,19 +24,29 @@ class BookDocumentRepositoryImpl implements IBookDocumentRepositoryCustom {
     private final ElasticsearchOperations elasticsearchOperations;
 
     @Override
-    public Integer[] findAllIds() {
+    public List<Integer> findAllIds() {
+        IndexCoordinates index = IndexCoordinates.of("books");
         String[] includeFields = new String[]{"id"};
 
-        Query query = NativeQuery.builder()
-                .withQuery(q -> q.matchAll(QueryBuilders.matchAll().build()))
-                .withSourceFilter(new FetchSourceFilter(includeFields, null)).build();
+        Query searchQuery = NativeQuery.builder()
+                .withQuery(q -> q
+                        .matchAll(ma -> ma))
+                .withPageable(PageRequest.of(0, 10000))
+                .withSourceFilter(new FetchSourceFilter(includeFields, null))
+                .build();
 
-        SearchHits<BookDocument> searchHits = elasticsearchOperations.search(query, BookDocument.class);
-        Integer[] ids = searchHits.getSearchHits()
-                .stream().map(sh -> sh.getContent().getId())
-                .toArray(Integer[]::new);
+        SearchHitsIterator<BookDocument> stream = elasticsearchOperations.searchForStream(searchQuery, BookDocument.class,
+                index);
 
-        return ids;
+        List<Integer> bookIds = new ArrayList<>();
+        while (stream.hasNext()) {
+            bookIds.add(stream.next().getContent().getId());
+        }
+
+        stream.close();
+
+        logger.info(String.valueOf(bookIds.size()));
+        return bookIds;
     }
 }
 

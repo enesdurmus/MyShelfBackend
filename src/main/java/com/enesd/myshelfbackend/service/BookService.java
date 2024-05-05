@@ -1,6 +1,7 @@
 package com.enesd.myshelfbackend.service;
 
 import com.enesd.myshelfbackend.model.entities.BookEntity;
+import com.enesd.myshelfbackend.repository.elasticsearch.BookDocumentRepository;
 import com.enesd.myshelfbackend.repository.jpa.BookEntityRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
@@ -12,13 +13,14 @@ import java.util.List;
 @AllArgsConstructor
 public class BookService {
 
-    private final BookEntityRepository bookRepository;
+    private final BookEntityRepository bookEntityRepository;
+    private final BookDocumentRepository bookDocumentRepository;
 
     public List<BookEntity> searchRelatedBooks(String searchText) {
-        return bookRepository.findByTitleContaining(searchText);
+        return null;
     }
 
     public BookEntity findBookById(int bookId) {
-        return bookRepository.findById(bookId).orElseThrow(EntityNotFoundException::new);
+        return bookEntityRepository.findById(bookId).orElseThrow(EntityNotFoundException::new);
     }
 }
