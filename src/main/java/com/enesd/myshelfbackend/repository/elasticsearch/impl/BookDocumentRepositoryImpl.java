@@ -45,7 +45,6 @@ class BookDocumentRepositoryImpl implements IBookDocumentRepositoryCustom {
         }
 
         stream.close();
-
         logger.info(String.valueOf(bookIds.size()));
         return bookIds;
     }
