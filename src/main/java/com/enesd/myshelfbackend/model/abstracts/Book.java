@@ -1,4 +1,4 @@
-package com.enesd.myshelfbackend.model.base;
+package com.enesd.myshelfbackend.model.abstracts;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 @MappedSuperclass
-public abstract class Book extends Auditable {
+public abstract class Book {
     @Id
     @Column(name = "id")
     private int id;

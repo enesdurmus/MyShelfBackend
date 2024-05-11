@@ -1,5 +1,6 @@
-package com.enesd.myshelfbackend.model.base;
+package com.enesd.myshelfbackend.model.abstracts;
 
+import com.enesd.myshelfbackend.model.interfaces.IAuditable;
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
@@ -15,7 +16,7 @@ import java.time.Instant;
 @EntityListeners(AuditingEntityListener.class)
 @Data
 @MappedSuperclass
-public abstract class Auditable {
+public abstract class Auditable implements IAuditable {
     @CreatedBy
     protected String createdBy;
 

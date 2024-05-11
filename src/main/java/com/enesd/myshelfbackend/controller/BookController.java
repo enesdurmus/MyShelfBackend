@@ -1,6 +1,5 @@
 package com.enesd.myshelfbackend.controller;
 
-import com.enesd.myshelfbackend.model.base.Book;
 import com.enesd.myshelfbackend.model.documents.BookDocument;
 import com.enesd.myshelfbackend.model.entities.BookEntity;
 import com.enesd.myshelfbackend.model.response.GenericResponse;

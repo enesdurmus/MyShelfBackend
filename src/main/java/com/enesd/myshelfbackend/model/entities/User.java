@@ -1,7 +1,7 @@
 package com.enesd.myshelfbackend.model.entities;
 
 import com.enesd.myshelfbackend.enums.RoleType;
-import com.enesd.myshelfbackend.model.base.Auditable;
+import com.enesd.myshelfbackend.model.abstracts.Auditable;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
