@@ -1,5 +1,6 @@
 package com.enesd.myshelfbackend.model.entities;
 
+import com.enesd.myshelfbackend.model.base.Auditable;
 import com.enesd.myshelfbackend.model.compositeKeys.UserBookWishlistId;
 import com.enesd.myshelfbackend.model.compositeKeys.UserFriendId;
 import jakarta.persistence.*;
@@ -14,7 +15,7 @@ import java.util.UUID;
 @Data
 @IdClass(UserFriendId.class)
 @Table(name = "user_friends")
-public class UserFriend {
+public class UserFriend extends Auditable {
 
     @Id
     @Column(name = "user_id")
@@ -23,8 +24,4 @@ public class UserFriend {
     @Id
     @Column(name = "friend_id")
     private UUID friendId;
-
-    @CreationTimestamp(source = SourceType.VM)
-    @Column(name = "created_at")
-    private Instant createdAt;
 }

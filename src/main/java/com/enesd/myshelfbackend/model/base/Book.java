@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 @MappedSuperclass
-public class Book {
+public abstract class Book extends Auditable {
     @Id
     @Column(name = "id")
     private int id;
