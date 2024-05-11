@@ -20,13 +20,12 @@ import java.util.List;
 @Component
 @AllArgsConstructor
 public class ElasticBookSynchronizer {
-
     private static final Logger logger = LoggerFactory.getLogger(ElasticBookSynchronizer.class);
     private final BookDocumentRepository bookDocumentRepository;
     private final BookEntityRepository bookEntityRepository;
     private final ModelMapper modelMapper;
 
-    @Scheduled(cron = "0/10 * * ? * *")
+    @Scheduled(cron = "0 * * * * *")
     @SchedulerLock(name = "ElasticBookSynchronizer.synchronizeBooksWithRDBM", lockAtLeastFor = "PT15S", lockAtMostFor = "PT30S")
     public void synchronizeBooksWithRDBM() {
         List<Integer> elasticBookIds = bookDocumentRepository.findAllIds();

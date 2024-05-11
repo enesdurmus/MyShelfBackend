@@ -12,7 +12,7 @@ public class DeleteExpiredRateLimits {
 
     private final RateLimitService rateLimitService;
 
-    @Scheduled(cron = "0 * * * * *") // Every minute
+    @Scheduled(cron = "0 * * * * *")
     @SchedulerLock(name = "DeleteExpiredRateLimits.deleteExpiredRateLimits", lockAtLeastFor = "PT15S", lockAtMostFor = "PT30S")
     public void deleteExpiredRateLimits() {
         rateLimitService.deleteExpiredRateLimits();

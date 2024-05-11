@@ -20,9 +20,7 @@ public class RateLimitService {
     private static final int MAX_REQUESTS_PER_MINUTE = 100;
     private static final int RATE_LIMIT_WINDOW_SECONDS = 60;
     private static final String RATE_LIMIT_EXPIRE_POST_FIX = "::expires";
-
-    private static Logger log = LoggerFactory.getLogger(RateLimitService.class);
-
+    private static final Logger logger = LoggerFactory.getLogger(RateLimitService.class);
     private final RedisTemplate<Object, Object> redisTemplate;
 
     public void deleteExpiredRateLimits() {
@@ -46,14 +44,15 @@ public class RateLimitService {
 
             if (expiredKeys.size() > 0) {
                 redisTemplate.opsForHash().delete(CacheNames.RATE_LIMIT_HASH_KEY, expiredKeys.toArray());
+                logger.info("Expired rate limits keys deleted count: {}", expiredKeys.size());
             }
         } catch (Exception exception) {
-            log.error(exception.getMessage());
+            logger.error(exception.getMessage());
         }
     }
 
     public void checkRateLimit(String ipAddress) {
-        Long currentCount = redisTemplate.opsForHash().increment(CacheNames.RATE_LIMIT_HASH_KEY, ipAddress, 1);
+        long currentCount = redisTemplate.opsForHash().increment(CacheNames.RATE_LIMIT_HASH_KEY, ipAddress, 1);
 
         if (currentCount == 1) {
             redisTemplate.opsForHash().put(CacheNames.RATE_LIMIT_HASH_KEY, ipAddress +
