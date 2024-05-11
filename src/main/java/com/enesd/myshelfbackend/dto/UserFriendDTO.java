@@ -8,6 +8,5 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 public class UserFriendDTO {
-    private UUID userId;
     private UUID friendId;
 }
