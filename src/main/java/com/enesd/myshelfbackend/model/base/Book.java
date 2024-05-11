@@ -15,10 +15,10 @@ public abstract class Book extends Auditable {
     @Column(name = "isbn", unique = true)
     private String isbn;
 
-    @Column(name = "title")
+    @Column(name = "title", columnDefinition = "TEXT")
     private String title;
 
-    @Column(name = "title_without_series")
+    @Column(name = "title_without_series", columnDefinition = "TEXT")
     private String titleWithoutSeries;
 
     @Column(name = "country_code")
@@ -30,7 +30,7 @@ public abstract class Book extends Auditable {
     @Column(name = "page_number")
     private int pageNumber;
 
-    @Column(name = "description")
+    @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
     @Column(name = "publisher")
@@ -39,7 +39,7 @@ public abstract class Book extends Auditable {
 //    @Column(name = "similar_books")
 //    private String[] similarBooks;
 
-    @Column(name = "image_url")
+    @Column(name = "image_url", columnDefinition = "TEXT")
     private String imageUrl;
 
     @Column(name = "publication_day")
