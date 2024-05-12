@@ -36,8 +36,8 @@ public abstract class Book {
     @Column(name = "publisher")
     private String publisher;
 
-//    @Column(name = "similar_books")
-//    private String[] similarBooks;
+    @Column(name = "similar_books")
+    private Integer[] similarBooks;
 
     @Column(name = "image_url", columnDefinition = "TEXT")
     private String imageUrl;
@@ -51,6 +51,6 @@ public abstract class Book {
     @Column(name = "publication_year")
     private String publicationYear;
 
-//    @Column(name = "authors")
-//    private int[] bookAuthors;
+    @Column(name = "authors")
+    private Integer[] bookAuthors;
 }
