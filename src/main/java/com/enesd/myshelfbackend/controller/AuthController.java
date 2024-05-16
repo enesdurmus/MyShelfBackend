@@ -1,6 +1,8 @@
 package com.enesd.myshelfbackend.controller;
 
+import com.enesd.myshelfbackend.dto.TokenDTO;
 import com.enesd.myshelfbackend.dto.SignInDTO;
+import com.enesd.myshelfbackend.model.request.RefreshTokenRequest;
 import com.enesd.myshelfbackend.model.request.SignInRequest;
 import com.enesd.myshelfbackend.model.request.SignUpRequest;
 import com.enesd.myshelfbackend.model.response.GenericResponse;
@@ -30,5 +32,11 @@ public class AuthController {
     public ResponseEntity<GenericResponse<SignInDTO>> signIn(@Validated @RequestBody SignInRequest signInRequest) {
         SignInDTO signInDTO = authService.signIn(signInRequest);
         return ResponseEntity.ok(GenericResponse.success(signInDTO));
+    }
+
+    @PostMapping("/user/refresh_token")
+    public ResponseEntity<GenericResponse<TokenDTO>> refreshToken(@Validated @RequestBody RefreshTokenRequest refreshTokenRequest) {
+        TokenDTO tokenDTO = authService.refreshToken(refreshTokenRequest);
+        return ResponseEntity.ok(GenericResponse.success(tokenDTO));
     }
 }

@@ -1,13 +1,15 @@
 package com.enesd.myshelfbackend.service;
 
+import com.enesd.myshelfbackend.dto.TokenDTO;
 import com.enesd.myshelfbackend.dto.SignInDTO;
 import com.enesd.myshelfbackend.dto.UserDTO;
 import com.enesd.myshelfbackend.enums.RoleType;
 import com.enesd.myshelfbackend.model.entities.User;
+import com.enesd.myshelfbackend.model.request.RefreshTokenRequest;
 import com.enesd.myshelfbackend.model.request.SignInRequest;
 import com.enesd.myshelfbackend.model.request.SignUpRequest;
 import com.enesd.myshelfbackend.repository.jpa.UserRepository;
-import com.enesd.myshelfbackend.security.jwt.JwtUtil;
+import com.enesd.myshelfbackend.security.services.TokenService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,11 +25,10 @@ import java.util.Set;
 @Service
 @AllArgsConstructor
 public class AuthService {
-
     private final UserRepository userRepository;
+    private final TokenService tokenService;
     private final AuthenticationManager authenticationManager;
     private final PasswordEncoder passwordEncoder;
-    private final JwtUtil jwtUtil;
     private final ModelMapper modelMapper;
 
     public SignInDTO signUp(SignUpRequest signUpRequest) {
@@ -43,9 +44,9 @@ public class AuthService {
         Authentication authentication = new UsernamePasswordAuthenticationToken(user.getId(), user, user.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        String jwt = jwtUtil.generateToken(user);
+        TokenDTO tokenDTO = tokenService.createRefreshToken(user.getId());
         UserDTO userDTO = modelMapper.map(user, UserDTO.class);
-        return new SignInDTO(userDTO, jwt);
+        return new SignInDTO(userDTO, tokenDTO);
     }
 
     public SignInDTO signIn(SignInRequest signInRequest) {
@@ -54,8 +55,12 @@ public class AuthService {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         User user = (User) authentication.getPrincipal();
 
-        String jwt = jwtUtil.generateToken(user);
+        TokenDTO tokenDTO = tokenService.createRefreshToken(user.getId());
         UserDTO userDTO = modelMapper.map(user, UserDTO.class);
-        return new SignInDTO(userDTO, jwt);
+        return new SignInDTO(userDTO, tokenDTO);
+    }
+
+    public TokenDTO refreshToken(RefreshTokenRequest refreshTokenRequest) {
+        return tokenService.refreshAccessToken(refreshTokenRequest.getRefreshToken());
     }
 }
