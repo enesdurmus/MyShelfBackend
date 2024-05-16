@@ -4,6 +4,7 @@ import com.enesd.myshelfbackend.model.abstracts.Auditable;
 import com.enesd.myshelfbackend.model.compositeKeys.UserBookReadId;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.data.domain.Persistable;
 
 import java.util.UUID;
 
@@ -11,7 +12,7 @@ import java.util.UUID;
 @Data
 @IdClass(UserBookReadId.class)
 @Table(name = "user_books_read")
-public class UserBookRead extends Auditable {
+public class UserBookRead extends Auditable implements Persistable<UserBookReadId> {
 
     @Id
     @Column(name = "user_id")
@@ -20,4 +21,14 @@ public class UserBookRead extends Auditable {
     @Id
     @Column(name = "book_id")
     private int bookId;
+
+    @Override
+    public UserBookReadId getId() {
+        return new UserBookReadId(userId, bookId);
+    }
+
+    @Override
+    public boolean isNew() {
+        return true;
+    }
 }

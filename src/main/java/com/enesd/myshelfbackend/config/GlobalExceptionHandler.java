@@ -3,6 +3,7 @@ package com.enesd.myshelfbackend.config;
 import com.enesd.myshelfbackend.model.exceptions.TokenRefreshException;
 import com.enesd.myshelfbackend.model.response.GenericResponse;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -30,5 +31,12 @@ public class GlobalExceptionHandler {
         return ResponseEntity
                 .status(HttpStatus.FORBIDDEN)
                 .body(GenericResponse.error(exception.getMessage()));
+    }
+
+    @ExceptionHandler(value = {DataIntegrityViolationException.class})
+    public ResponseEntity<GenericResponse<String>> handleDataIntegrityViolationException(DataIntegrityViolationException exception) {
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(GenericResponse.error("Data Integrity Violation"));
     }
 }
