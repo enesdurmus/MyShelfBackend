@@ -2,6 +2,7 @@ package com.enesd.myshelfbackend.security.services;
 
 import com.enesd.myshelfbackend.dto.TokenDTO;
 import com.enesd.myshelfbackend.model.entities.RefreshToken;
+import com.enesd.myshelfbackend.model.exceptions.TokenRefreshException;
 import com.enesd.myshelfbackend.repository.jpa.RefreshTokenRepository;
 import com.enesd.myshelfbackend.repository.jpa.UserRepository;
 import com.enesd.myshelfbackend.security.jwt.JwtUtil;
@@ -42,7 +43,7 @@ public class TokenService {
     public void verifyExpiration(RefreshToken token) {
         if (token.getExpiredAt().compareTo(Instant.now()) < 0) {
             refreshTokenRepository.delete(token);
-            //throw new TokenRefreshException(token.getToken(), "Refresh token was expired. Please make a new signin request");
+            throw new TokenRefreshException("Refresh token was expired");
         }
     }
 
