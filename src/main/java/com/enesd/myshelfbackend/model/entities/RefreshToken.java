@@ -22,7 +22,7 @@ public class RefreshToken implements Persistable<Long> {
     @Column(name = "expired_at")
     private Instant expiredAt;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private User user;
 
