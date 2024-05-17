@@ -25,7 +25,7 @@ public class ElasticBookSynchronizer {
     private final BookEntityRepository bookEntityRepository;
     private final ModelMapper modelMapper;
 
-    @Scheduled(cron = "0 * * * * *")
+    @Scheduled(cron = "* * * * 1 *")
     @SchedulerLock(name = "ElasticBookSynchronizer.synchronizeBooksWithRDBM", lockAtLeastFor = "PT15S", lockAtMostFor = "PT30S")
     public void synchronizeBooksWithRDBM() {
         List<Integer> elasticBookIds = bookDocumentRepository.findAllIds();

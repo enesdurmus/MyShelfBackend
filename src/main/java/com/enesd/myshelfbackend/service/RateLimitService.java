@@ -1,6 +1,7 @@
 package com.enesd.myshelfbackend.service;
 
 import com.enesd.myshelfbackend.consts.CacheNames;
+import com.enesd.myshelfbackend.model.exceptions.TooManyRequestException;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -60,7 +61,7 @@ public class RateLimitService {
         }
 
         if (currentCount > MAX_REQUESTS_PER_MINUTE) {
-            // throw new TooManyRequestException();
+            throw new TooManyRequestException("Too many request");
         }
     }
 }

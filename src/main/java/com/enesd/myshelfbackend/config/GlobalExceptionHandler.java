@@ -1,6 +1,7 @@
 package com.enesd.myshelfbackend.config;
 
 import com.enesd.myshelfbackend.model.exceptions.TokenRefreshException;
+import com.enesd.myshelfbackend.model.exceptions.TooManyRequestException;
 import com.enesd.myshelfbackend.model.response.GenericResponse;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -38,5 +39,12 @@ public class GlobalExceptionHandler {
         return ResponseEntity
                 .status(HttpStatus.CONFLICT)
                 .body(GenericResponse.error("Data Integrity Violation"));
+    }
+
+    @ExceptionHandler(value = {TooManyRequestException.class})
+    public ResponseEntity<GenericResponse<String>> handleTooManyRequestException(TooManyRequestException exception) {
+        return ResponseEntity
+                .status(HttpStatus.TOO_MANY_REQUESTS)
+                .body(GenericResponse.error(exception.getMessage()));
     }
 }
