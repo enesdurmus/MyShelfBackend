@@ -1,5 +1,11 @@
 package com.enesd.myshelfbackend.controller;
 
+import com.enesd.myshelfbackend.model.documents.MediaContentDocument;
+import com.enesd.myshelfbackend.model.entities.MediaContentEntity;
+import com.enesd.myshelfbackend.model.response.GenericResponse;
+import com.enesd.myshelfbackend.repository.elasticsearch.MediaContentDocumentRepository;
+import com.enesd.myshelfbackend.repository.jpa.MediaContentEntityRepository;
+import com.enesd.myshelfbackend.service.MediaContentService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,13 +20,15 @@ import java.util.List;
 @AllArgsConstructor
 public class MediaContentController {
 
+    private final MediaContentService mediaContentService;
+
     @GetMapping("/search")
-    public ResponseEntity searchRelatedMediaContents(@RequestParam String searchTerm) {
-        return null;
+    public ResponseEntity<GenericResponse<List<MediaContentDocument>>> searchRelatedMediaContents(@RequestParam String searchTerm) {
+        return ResponseEntity.ok(GenericResponse.success(mediaContentService.searchRelatedMediaContents(searchTerm)));
     }
 
     @GetMapping("")
-    public ResponseEntity findMediaContentById(@RequestParam(required = true) int mediaContentId) {
-        return null;
+    public ResponseEntity<GenericResponse<MediaContentEntity>> findMediaContentById(@RequestParam(required = true) int mediaContentId) {
+        return ResponseEntity.ok(GenericResponse.success(mediaContentService.findMediaContentById(mediaContentId)));
     }
 }
