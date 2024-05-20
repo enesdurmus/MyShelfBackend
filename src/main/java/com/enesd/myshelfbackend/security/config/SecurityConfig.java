@@ -28,7 +28,6 @@ public class SecurityConfig {
                 .addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint(
                         (request, response, exception) -> {
-                            System.out.println(exception);
                             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, exception.getMessage());
                         }))
                 .securityMatcher("/api/**")
@@ -38,7 +37,9 @@ public class SecurityConfig {
                                 .requestMatchers("/api/*/*/admin/**")
                                 .hasAuthority(RoleType.ROLE_ADMIN.toString())
                                 .requestMatchers("/api/*/*/user/**")
-                                .hasAnyAuthority(RoleType.ROLE_ADMIN.toString(), RoleType.ROLE_USER.toString())
+                                .hasAnyAuthority(RoleType.ROLE_ADMIN.toString(),
+                                        RoleType.ROLE_APP_USER.toString(),
+                                        RoleType.ROLE_API_USER.toString())
                                 .anyRequest().authenticated())
                 .cors(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
@@ -47,5 +48,4 @@ public class SecurityConfig {
 
         return http.build();
     }
-
 }

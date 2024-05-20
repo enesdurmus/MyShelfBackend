@@ -1,6 +1,5 @@
 package com.enesd.myshelfbackend.jobs;
 
-import com.enesd.myshelfbackend.model.abstracts.MediaContent;
 import com.enesd.myshelfbackend.model.documents.BookDocument;
 import com.enesd.myshelfbackend.model.documents.MediaContentDocument;
 import com.enesd.myshelfbackend.model.entities.BookEntity;
@@ -24,8 +23,8 @@ import java.util.List;
 
 @Component
 @AllArgsConstructor
-public class ElasticBookSynchronizer {
-    private static final Logger logger = LoggerFactory.getLogger(ElasticBookSynchronizer.class);
+public class ElasticSynchronizer {
+    private static final Logger logger = LoggerFactory.getLogger(ElasticSynchronizer.class);
     private final BookDocumentRepository bookDocumentRepository;
     private final BookEntityRepository bookEntityRepository;
     private final MediaContentDocumentRepository mediaContentDocumentRepository;

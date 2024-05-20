@@ -53,11 +53,11 @@ public class JwtUtil {
     private String buildToken(Map<String, Object> extraClaims, User user, long expiration) {
         return Jwts
                 .builder()
-                .setClaims(extraClaims)
-                .setSubject(user.getId().toString())
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + expiration))
-                .signWith(getSignInKey(), SignatureAlgorithm.HS256)
+                .claims(extraClaims)
+                .subject(user.getId().toString())
+                .issuedAt(new Date(System.currentTimeMillis()))
+                .expiration(new Date(System.currentTimeMillis() + expiration))
+                .signWith(getSignInKey())
                 .compact();
     }
 
@@ -68,7 +68,11 @@ public class JwtUtil {
     public Authentication getAuthentication(String token) {
         Claims claims = extractAllClaims(token);
         UUID userId = UUID.fromString(claims.getSubject());
-        Set<RoleType> roles = ((ArrayList<String>) claims.get("authorities")).stream().map(RoleType::valueOf).collect(Collectors.toSet());
+        Set<RoleType> roles = ((ArrayList<String>) claims
+                .get("authorities"))
+                .stream()
+                .map(RoleType::valueOf)
+                .collect(Collectors.toSet());
         User user = new User();
         user.setId(userId);
         user.setRoles(roles);
@@ -88,8 +92,8 @@ public class JwtUtil {
                 .parser()
                 .setSigningKey(getSignInKey())
                 .build()
-                .parseClaimsJws(token)
-                .getBody();
+                .parseSignedClaims(token)
+                .getPayload();
     }
 
     private Key getSignInKey() {
