@@ -20,15 +20,13 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
-@Component
 @AllArgsConstructor
+@Component
 public class JwtAuthorizationFilter extends OncePerRequestFilter {
-
-    private final JwtUtil jwtUtil;
-
     private static final RequestMatcher authMatcher = new AntPathRequestMatcher("/api/*/auth/**");
 
     private static final Logger logger = LoggerFactory.getLogger(JwtAuthorizationFilter.class);
+    private final JwtUtil jwtUtil;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)

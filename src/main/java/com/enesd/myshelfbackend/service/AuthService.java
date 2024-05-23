@@ -33,7 +33,7 @@ public class AuthService {
 
     public SignInDTO signUp(SignUpRequest signUpRequest) {
         Set<RoleType> defaultRoles = new HashSet<>();
-        defaultRoles.add(RoleType.ROLE_APP_USER);
+        defaultRoles.add(RoleType.APP_USER);
 
         User user = new User();
         user.setUsername(signUpRequest.getUsername());
