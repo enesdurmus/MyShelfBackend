@@ -1,25 +1,26 @@
-package com.enesd.myshelfbackend.security.jwt;
+package com.enesd.myshelfbackend.security.services;
 
 import com.enesd.myshelfbackend.enums.RoleType;
 import com.enesd.myshelfbackend.model.entities.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.security.Key;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-@Component
-public class JwtUtil {
+@Service
+public class JwtService {
+
+    private final String AUTHORITIES_KEY = "authorities";
 
     @Value("${security.jwt.secret-key}")
     private String secretKey;
@@ -38,7 +39,7 @@ public class JwtUtil {
 
     public String generateToken(User user) {
         HashMap<String, Object> claims = new HashMap<>();
-        claims.put("authorities", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toSet()));
+        claims.put(AUTHORITIES_KEY, user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()));
         return generateToken(claims, user);
     }
 
@@ -68,11 +69,13 @@ public class JwtUtil {
     public Authentication getAuthentication(String token) {
         Claims claims = extractAllClaims(token);
         UUID userId = UUID.fromString(claims.getSubject());
-        Set<RoleType> roles = ((ArrayList<String>) claims
-                .get("authorities"))
+
+        List<String> rolesArr = claims.get(AUTHORITIES_KEY, List.class);
+        Set<RoleType> roles = rolesArr
                 .stream()
                 .map(RoleType::valueOf)
                 .collect(Collectors.toSet());
+
         User user = new User();
         user.setId(userId);
         user.setRoles(roles);

@@ -7,6 +7,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -45,6 +46,13 @@ public class GlobalExceptionHandler {
     public ResponseEntity<GenericResponse<String>> handleTooManyRequestException(TooManyRequestException exception) {
         return ResponseEntity
                 .status(HttpStatus.TOO_MANY_REQUESTS)
+                .body(GenericResponse.error(exception.getMessage()));
+    }
+
+    @ExceptionHandler(value = {AccessDeniedException.class})
+    public ResponseEntity<GenericResponse<String>> handleAccessDeniedException(AccessDeniedException exception) {
+        return ResponseEntity
+                .status(HttpStatus.FORBIDDEN)
                 .body(GenericResponse.error(exception.getMessage()));
     }
 }

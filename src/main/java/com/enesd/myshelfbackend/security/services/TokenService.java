@@ -5,9 +5,7 @@ import com.enesd.myshelfbackend.model.entities.RefreshToken;
 import com.enesd.myshelfbackend.model.exceptions.TokenRefreshException;
 import com.enesd.myshelfbackend.repository.jpa.RefreshTokenRepository;
 import com.enesd.myshelfbackend.repository.jpa.UserRepository;
-import com.enesd.myshelfbackend.security.jwt.JwtUtil;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,22 +20,22 @@ public class TokenService {
 //    private Long refreshTokenDurationMs;
 
     private final RefreshTokenRepository refreshTokenRepository;
-    private final JwtUtil jwtUtil;
+    private final JwtService jwtService;
     private final UserRepository userRepository;
 
     public TokenDTO refreshAccessToken(String token) {
         RefreshToken refreshToken = refreshTokenRepository.findByRefreshToken(token).orElseThrow(RuntimeException::new);
         verifyExpiration(refreshToken);
-        return new TokenDTO(jwtUtil.generateToken(refreshToken.getUser()), refreshToken.getRefreshToken(), refreshToken.getExpiredAt());
+        return new TokenDTO(jwtService.generateToken(refreshToken.getUser()), refreshToken.getRefreshToken(), refreshToken.getExpiredAt());
     }
 
-    public TokenDTO createRefreshToken(UUID userId) {
+    public TokenDTO createJwtAccessAndRefreshToken(UUID userId) {
         RefreshToken refreshToken = new RefreshToken();
         refreshToken.setUser(userRepository.getReferenceById(userId));
         refreshToken.setExpiredAt(Instant.now().plusMillis(360000000));
         refreshToken.setRefreshToken(UUID.randomUUID().toString());
         refreshToken = refreshTokenRepository.saveRefreshToken(refreshToken.getUser().getId(), refreshToken.getRefreshToken(), refreshToken.getExpiredAt());
-        return new TokenDTO(jwtUtil.generateToken(refreshToken.getUser()), refreshToken.getRefreshToken(), refreshToken.getExpiredAt());
+        return new TokenDTO(jwtService.generateToken(refreshToken.getUser()), refreshToken.getRefreshToken(), refreshToken.getExpiredAt());
     }
 
     public void verifyExpiration(RefreshToken token) {

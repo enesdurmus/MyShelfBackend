@@ -1,7 +1,7 @@
 package com.enesd.myshelfbackend.filters;
 
 
-import com.enesd.myshelfbackend.security.jwt.JwtUtil;
+import com.enesd.myshelfbackend.security.services.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -9,7 +9,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -26,32 +25,29 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
     private static final RequestMatcher authMatcher = new AntPathRequestMatcher("/api/*/auth/**");
 
     private static final Logger logger = LoggerFactory.getLogger(JwtAuthorizationFilter.class);
-    private final JwtUtil jwtUtil;
+    private final JwtService jwtService;
+
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
+        final String authHeader = request.getHeader("Authorization");
 
-        String header = request.getHeader("Authorization");
-
-        if (!StringUtils.hasText(header) || !header.startsWith("Bearer ")) {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token is not valid");
+        if (!StringUtils.hasText(authHeader) || !authHeader.startsWith("Bearer")) {
+            filterChain.doFilter(request, response);
             return;
         }
 
-        String token = header.substring(7);
+        final String jwt = authHeader.substring(7);
 
-        if (jwtUtil.isTokenValid(token)) {
-            Authentication authentication = jwtUtil.getAuthentication(token);
-
+        if (jwtService.isTokenValid(jwt)) {
+            Authentication authentication = jwtService.getAuthentication(jwt);
             if (authentication != null) {
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
-
-            filterChain.doFilter(request, response);
-        } else {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token is not valid");
         }
+
+        filterChain.doFilter(request, response);
     }
 
     @Override

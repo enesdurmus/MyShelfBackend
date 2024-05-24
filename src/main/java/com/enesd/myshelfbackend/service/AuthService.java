@@ -44,7 +44,7 @@ public class AuthService {
         Authentication authentication = new UsernamePasswordAuthenticationToken(user.getId(), user, user.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        TokenDTO tokenDTO = tokenService.createRefreshToken(user.getId());
+        TokenDTO tokenDTO = tokenService.createJwtAccessAndRefreshToken(user.getId());
         UserDTO userDTO = modelMapper.map(user, UserDTO.class);
         return new SignInDTO(userDTO, tokenDTO);
     }
@@ -55,7 +55,7 @@ public class AuthService {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         User user = (User) authentication.getPrincipal();
 
-        TokenDTO tokenDTO = tokenService.createRefreshToken(user.getId());
+        TokenDTO tokenDTO = tokenService.createJwtAccessAndRefreshToken(user.getId());
         UserDTO userDTO = modelMapper.map(user, UserDTO.class);
         return new SignInDTO(userDTO, tokenDTO);
     }
