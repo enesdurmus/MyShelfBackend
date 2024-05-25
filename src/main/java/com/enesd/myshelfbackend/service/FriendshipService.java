@@ -13,9 +13,9 @@ import java.util.UUID;
 
 @Service
 @AllArgsConstructor
-public class UserFriendService {
+public class FriendshipService {
 
-    private final FriendshipRepository userFriendRepository;
+    private final FriendshipRepository friendshipRepository;
 
     private final ModelMapper modelMapper;
 
@@ -23,12 +23,12 @@ public class UserFriendService {
         Friendship friendship = new Friendship();
         friendship.setUserId(userId);
         friendship.setFriendId(friendId);
-        Friendship savedFriendship = userFriendRepository.save(friendship);
+        Friendship savedFriendship = friendshipRepository.save(friendship);
         return modelMapper.map(savedFriendship, UserFriendDTO.class);
     }
 
     public List<UserFriendDTO> getUserFriends(UUID userId) {
-        //List<Friendship> friendships = userFriendRepository.findAllByUserIdOrFriendId(userId);
-        return null;//((CustomModelMapper) modelMapper).mapAll(friendships, UserFriendDTO.class);
+        List<Friendship> friendships = friendshipRepository.findAllByUserIdOrFriendId(userId);
+        return ((CustomModelMapper) modelMapper).mapAll(friendships, UserFriendDTO.class);
     }
 }

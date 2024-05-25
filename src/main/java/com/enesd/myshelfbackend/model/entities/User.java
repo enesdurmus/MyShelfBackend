@@ -36,7 +36,7 @@ public class User extends Auditable implements UserDetails {
     private Set<RoleType> roles = new HashSet<>();
 
     @OneToMany(mappedBy = "userId", fetch = FetchType.LAZY)
-    private Set<UserFriend> userFriends;
+    private Set<Friendship> friendships;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
