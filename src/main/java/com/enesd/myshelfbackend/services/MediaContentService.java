@@ -1,9 +1,6 @@
-package com.enesd.myshelfbackend.service;
+package com.enesd.myshelfbackend.services;
 
-import com.enesd.myshelfbackend.model.abstracts.MediaContent;
-import com.enesd.myshelfbackend.model.documents.BookDocument;
 import com.enesd.myshelfbackend.model.documents.MediaContentDocument;
-import com.enesd.myshelfbackend.model.entities.BookEntity;
 import com.enesd.myshelfbackend.model.entities.MediaContentEntity;
 import com.enesd.myshelfbackend.repository.elasticsearch.MediaContentDocumentRepository;
 import com.enesd.myshelfbackend.repository.jpa.MediaContentEntityRepository;

@@ -1,4 +1,4 @@
-package com.enesd.myshelfbackend.service;
+package com.enesd.myshelfbackend.services;
 
 import org.springframework.stereotype.Service;
 

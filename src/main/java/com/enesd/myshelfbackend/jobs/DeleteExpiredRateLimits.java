@@ -1,6 +1,6 @@
 package com.enesd.myshelfbackend.jobs;
 
-import com.enesd.myshelfbackend.service.RateLimitService;
+import com.enesd.myshelfbackend.services.RateLimitService;
 import lombok.AllArgsConstructor;
 import net.javacrumbs.shedlock.spring.annotation.SchedulerLock;
 import org.springframework.scheduling.annotation.Scheduled;

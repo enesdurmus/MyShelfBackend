@@ -1,4 +1,4 @@
-package com.enesd.myshelfbackend.service;
+package com.enesd.myshelfbackend.services;
 
 import com.enesd.myshelfbackend.dto.UserFriendDTO;
 import com.enesd.myshelfbackend.model.entities.Friendship;

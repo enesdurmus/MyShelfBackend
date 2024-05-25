@@ -1,4 +1,4 @@
-package com.enesd.myshelfbackend.service;
+package com.enesd.myshelfbackend.services;
 
 import com.enesd.myshelfbackend.consts.CacheNames;
 import com.enesd.myshelfbackend.model.exceptions.TooManyRequestException;

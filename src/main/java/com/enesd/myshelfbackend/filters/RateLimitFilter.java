@@ -1,6 +1,6 @@
 package com.enesd.myshelfbackend.filters;
 
-import com.enesd.myshelfbackend.service.RateLimitService;
+import com.enesd.myshelfbackend.services.RateLimitService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

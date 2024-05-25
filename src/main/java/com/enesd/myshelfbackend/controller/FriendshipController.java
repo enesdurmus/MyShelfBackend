@@ -3,7 +3,7 @@ package com.enesd.myshelfbackend.controller;
 import com.enesd.myshelfbackend.dto.UserFriendDTO;
 import com.enesd.myshelfbackend.model.entities.User;
 import com.enesd.myshelfbackend.model.response.GenericResponse;
-import com.enesd.myshelfbackend.service.FriendshipService;
+import com.enesd.myshelfbackend.services.FriendshipService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,9 +13,9 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/v1/friends")
+@RequestMapping("/api/v1/friendship")
 @AllArgsConstructor
-public class UserFriendController {
+public class FriendshipController {
 
     private final FriendshipService friendshipService;
 

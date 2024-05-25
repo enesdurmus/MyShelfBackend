@@ -3,9 +3,10 @@ package com.enesd.myshelfbackend.controller;
 import com.enesd.myshelfbackend.model.documents.BookDocument;
 import com.enesd.myshelfbackend.model.entities.BookEntity;
 import com.enesd.myshelfbackend.model.response.GenericResponse;
-import com.enesd.myshelfbackend.service.BookService;
+import com.enesd.myshelfbackend.services.BookService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,6 +18,7 @@ public class BookController {
 
     private final BookService bookService;
 
+    @PreAuthorize("hasAuthority('APP_USER')")
     @GetMapping("/search")
     public ResponseEntity<GenericResponse<List<BookDocument>>> searchRelatedBooks(@RequestParam String searchTerm) {
         return ResponseEntity.ok(GenericResponse.success(bookService.searchRelatedBooks(searchTerm)));

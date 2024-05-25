@@ -1,4 +1,4 @@
-package com.enesd.myshelfbackend.service;
+package com.enesd.myshelfbackend.services;
 
 import com.enesd.myshelfbackend.model.documents.BookDocument;
 import com.enesd.myshelfbackend.model.entities.BookEntity;

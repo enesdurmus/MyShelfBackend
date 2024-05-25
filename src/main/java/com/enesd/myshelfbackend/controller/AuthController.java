@@ -6,7 +6,7 @@ import com.enesd.myshelfbackend.model.request.RefreshTokenRequest;
 import com.enesd.myshelfbackend.model.request.SignInRequest;
 import com.enesd.myshelfbackend.model.request.SignUpRequest;
 import com.enesd.myshelfbackend.model.response.GenericResponse;
-import com.enesd.myshelfbackend.service.AuthService;
+import com.enesd.myshelfbackend.services.AuthService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
