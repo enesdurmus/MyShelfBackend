@@ -3,6 +3,7 @@ package com.enesd.myshelfbackend.services;
 import com.enesd.myshelfbackend.dto.TokenDTO;
 import com.enesd.myshelfbackend.dto.SignInDTO;
 import com.enesd.myshelfbackend.dto.UserDTO;
+import com.enesd.myshelfbackend.enums.ClientType;
 import com.enesd.myshelfbackend.enums.RoleType;
 import com.enesd.myshelfbackend.model.entities.User;
 import com.enesd.myshelfbackend.model.request.RefreshTokenRequest;
@@ -31,15 +32,14 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final ModelMapper modelMapper;
 
-    public SignInDTO signUp(SignUpRequest signUpRequest) {
-        Set<RoleType> defaultRoles = new HashSet<>();
-        defaultRoles.add(RoleType.APP_USER);
+    public SignInDTO signUp(SignUpRequest signUpRequest, ClientType clientType) {
+        Set<RoleType> defaultRoles = determineDefaultRoles(clientType);
 
         User user = new User();
         user.setUsername(signUpRequest.getUsername());
         user.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
         user.setRoles(defaultRoles);
-        user = userRepository.save(user);
+        userRepository.save(user);
 
         Authentication authentication = new UsernamePasswordAuthenticationToken(user.getId(), user, user.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -62,5 +62,15 @@ public class AuthService {
 
     public TokenDTO refreshToken(RefreshTokenRequest refreshTokenRequest) {
         return tokenService.refreshAccessToken(refreshTokenRequest.getRefreshToken());
+    }
+
+    private Set<RoleType> determineDefaultRoles(ClientType clientType) {
+        Set<RoleType> defaultRoles = new HashSet<>();
+        if (clientType == ClientType.MOBILE) {
+            defaultRoles.add(RoleType.APP_USER);
+        } else {
+            defaultRoles.add(RoleType.API_USER);
+        }
+        return defaultRoles;
     }
 }

@@ -30,11 +30,14 @@ public class TokenService {
     }
 
     public TokenDTO createJwtAccessAndRefreshToken(UUID userId) {
+        Instant currentTime = Instant.now();
         RefreshToken refreshToken = new RefreshToken();
         refreshToken.setUser(userRepository.getReferenceById(userId));
-        refreshToken.setExpiredAt(Instant.now().plusMillis(360000000));
+        refreshToken.setExpiredAt(Instant.now().plusMillis(360000000)); //TODO change magic value
         refreshToken.setRefreshToken(UUID.randomUUID().toString());
-        refreshToken = refreshTokenRepository.saveRefreshToken(refreshToken.getUser().getId(), refreshToken.getRefreshToken(), refreshToken.getExpiredAt());
+        refreshToken.setCreatedAt(currentTime);
+        refreshToken.setUpdatedAt(currentTime);
+        refreshToken = refreshTokenRepository.saveRefreshToken(refreshToken);
         return new TokenDTO(jwtService.generateToken(refreshToken.getUser()), refreshToken.getRefreshToken(), refreshToken.getExpiredAt());
     }
 

@@ -14,10 +14,10 @@ public interface RefreshTokenRepository extends JpaRepository<RefreshToken, Long
     @EntityGraph(attributePaths = {"user", "user.roles"}, type = EntityGraph.EntityGraphType.FETCH)
     Optional<RefreshToken> findByRefreshToken(@Param("refreshToken") String refreshToken);
 
-    @Query(value = "INSERT INTO refresh_tokens (user_id, refresh_token, expired_at) " +
-            "VALUES (?1, ?2, ?3) " +
+    @Query(value = "INSERT INTO refresh_tokens (user_id, refresh_token, expired_at, created_at, updated_at) " +
+            "VALUES (:#{#refreshToken.user.id}, :#{#refreshToken.refreshToken}, :#{#refreshToken.expiredAt}, :#{#refreshToken.createdAt}, :#{#refreshToken.updatedAt}) " +
             "ON CONFLICT (user_id) " +
-            "DO UPDATE SET refresh_token = ?2, expired_at = ?3 " +
+            "DO UPDATE SET refresh_token = :#{#refreshToken.refreshToken}, expired_at = :#{#refreshToken.expiredAt}, updated_at = :#{#refreshToken.updatedAt} " +
             "RETURNING *;", nativeQuery = true)
-    RefreshToken saveRefreshToken(UUID userId, String token, Instant instant);
+    RefreshToken saveRefreshToken(@Param("refreshToken") RefreshToken refreshToken);
 }
