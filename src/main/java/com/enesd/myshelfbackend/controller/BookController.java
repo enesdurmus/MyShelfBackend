@@ -18,7 +18,6 @@ public class BookController {
 
     private final BookService bookService;
 
-    @PreAuthorize("hasAuthority('APP_USER')")
     @GetMapping("/search")
     public ResponseEntity<GenericResponse<List<BookDocument>>> searchRelatedBooks(@RequestParam String searchTerm) {
         return ResponseEntity.ok(GenericResponse.success(bookService.searchRelatedBooks(searchTerm)));

@@ -17,4 +17,8 @@ public class WishlistService {
     public void getWishlists() {
 
     }
+
+    public void deleteWishlist() {
+
+    }
 }
