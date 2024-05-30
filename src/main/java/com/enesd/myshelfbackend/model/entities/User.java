@@ -19,7 +19,7 @@ import java.util.UUID;
 public class User extends Auditable implements UserDetails {
 
     @Id
-    @Column(name = "user_id")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
@@ -37,6 +37,9 @@ public class User extends Auditable implements UserDetails {
 
     @OneToMany(mappedBy = "userId", fetch = FetchType.LAZY)
     private Set<Friendship> friendships;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private Set<Wishlist> wishlists;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

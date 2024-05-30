@@ -17,8 +17,8 @@ public class RefreshToken extends Auditable implements Persistable<UUID> {
     private UUID userId;
 
     @OneToOne
-    @JoinColumn(name = "user_id")
     @MapsId
+    @JoinColumn(name = "user_id")
     private User user;
 
     @Column(name = "refresh_token", unique = true)

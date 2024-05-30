@@ -10,7 +10,7 @@ import lombok.Data;
 public class AccessToken extends Auditable {
     @Id
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    @JoinColumn(name = "user_id")
     private User user;
 
     @Column(name = "access_token", unique = true, columnDefinition = "TEXT")
