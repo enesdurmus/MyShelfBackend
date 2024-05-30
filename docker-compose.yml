@@ -17,7 +17,6 @@ services:
       SPRING_REDIS_DATA_PORT: 6379
     depends_on:
       - postgres
-      - elasticsearch
       - redis
     networks:
       - my-network
@@ -44,15 +43,6 @@ services:
     networks:
       - my-network
 
-  elasticsearch:
-    container_name: elasticsearch
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.15.1
-    environment:
-      - discovery.type=single-node
-    ports:
-      - "9200:9200"
-    networks:
-      - my-network
 networks:
   my-network:
     driver: bridge
