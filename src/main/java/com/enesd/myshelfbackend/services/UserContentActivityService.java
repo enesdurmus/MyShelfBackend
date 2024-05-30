@@ -5,7 +5,6 @@ import com.enesd.myshelfbackend.enums.ContentType;
 import com.enesd.myshelfbackend.model.entities.User;
 import com.enesd.myshelfbackend.model.entities.UserContentActivity;
 import com.enesd.myshelfbackend.model.request.CreateContentActivityRequest;
-import com.enesd.myshelfbackend.repository.jpa.MediaContentEntityRepository;
 import com.enesd.myshelfbackend.repository.jpa.UserContentActivityRepository;
 import com.enesd.myshelfbackend.utils.CustomModelMapper;
 import lombok.AllArgsConstructor;
@@ -20,7 +19,6 @@ import java.util.List;
 public class UserContentActivityService {
 
     private final UserContentActivityRepository userContentActivityRepository;
-    private final MediaContentEntityRepository mediaContentEntityRepository;
 
     private final CustomModelMapper modelMapper;
 
@@ -29,7 +27,7 @@ public class UserContentActivityService {
         userContentActivity.setUser(user);
         userContentActivity.setActivityType(createContentActivityRequest.getActivityType());
         userContentActivity.setContentType(createContentActivityRequest.getContentType());
-        userContentActivity.setContentId(mediaContentEntityRepository.getReferenceById(createContentActivityRequest.getContentId()));
+        userContentActivity.setContentId(createContentActivityRequest.getContentId());
         userContentActivityRepository.save(userContentActivity);
         return modelMapper.map(userContentActivity, UserContentActivityDTO.class);
     }

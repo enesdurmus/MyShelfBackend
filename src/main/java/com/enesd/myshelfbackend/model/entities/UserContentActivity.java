@@ -25,9 +25,8 @@ public class UserContentActivity extends Auditable implements Persistable<Long> 
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "content_id")
-    private MediaContentEntity contentId;
+    @Column(name = "content_id")
+    private int contentId;
 
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "content_type")
