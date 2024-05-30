@@ -9,6 +9,6 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserFriendDTO {
+public class FriendshipDTO {
     private UUID friendId;
 }

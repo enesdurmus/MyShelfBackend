@@ -1,6 +1,6 @@
 package com.enesd.myshelfbackend.controller;
 
-import com.enesd.myshelfbackend.dto.UserFriendDTO;
+import com.enesd.myshelfbackend.dto.FriendshipDTO;
 import com.enesd.myshelfbackend.model.entities.User;
 import com.enesd.myshelfbackend.model.response.GenericResponse;
 import com.enesd.myshelfbackend.services.FriendshipService;
@@ -22,7 +22,7 @@ public class FriendshipController {
 
     @PreAuthorize("hasAuthority('APP_USER') or hasAuthority('ADMIN')")
     @PostMapping
-    public ResponseEntity<GenericResponse<UserFriendDTO>> createFriendship(@RequestParam(required = true) UUID friendId) {
+    public ResponseEntity<GenericResponse<FriendshipDTO>> createFriendship(@RequestParam(required = true) UUID friendId) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return ResponseEntity.ok(GenericResponse.success(friendshipService.createFriendship(user.getId(), friendId)));
     }
@@ -35,7 +35,7 @@ public class FriendshipController {
 
     @PreAuthorize("hasAuthority('APP_USER') or hasAuthority('ADMIN')")
     @GetMapping("")
-    public ResponseEntity<GenericResponse<List<UserFriendDTO>>> getFriends() {
+    public ResponseEntity<GenericResponse<List<FriendshipDTO>>> getFriends() {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return ResponseEntity.ok(GenericResponse.success(friendshipService.getUserFriends(user.getId())));
     }

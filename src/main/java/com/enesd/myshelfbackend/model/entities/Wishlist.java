@@ -34,11 +34,6 @@ public class Wishlist extends Auditable implements Persistable<Long> {
     private ContentType contentType;
 
     @Override
-    public Long getId() {
-        return id;
-    }
-
-    @Override
     public boolean isNew() {
         return true;
     }

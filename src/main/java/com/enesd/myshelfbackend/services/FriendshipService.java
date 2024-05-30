@@ -1,6 +1,6 @@
 package com.enesd.myshelfbackend.services;
 
-import com.enesd.myshelfbackend.dto.UserFriendDTO;
+import com.enesd.myshelfbackend.dto.FriendshipDTO;
 import com.enesd.myshelfbackend.model.entities.Friendship;
 import com.enesd.myshelfbackend.repository.jpa.FriendshipRepository;
 import com.enesd.myshelfbackend.utils.CustomModelMapper;
@@ -19,16 +19,16 @@ public class FriendshipService {
 
     private final ModelMapper modelMapper;
 
-    public UserFriendDTO createFriendship(UUID userId, UUID friendId) {
+    public FriendshipDTO createFriendship(UUID userId, UUID friendId) {
         Friendship friendship = new Friendship();
         friendship.setUserId(userId);
         friendship.setFriendId(friendId);
         Friendship savedFriendship = friendshipRepository.save(friendship);
-        return modelMapper.map(savedFriendship, UserFriendDTO.class);
+        return modelMapper.map(savedFriendship, FriendshipDTO.class);
     }
 
-    public List<UserFriendDTO> getUserFriends(UUID userId) {
+    public List<FriendshipDTO> getUserFriends(UUID userId) {
         List<Friendship> friendships = friendshipRepository.findAllByUserIdOrFriendId(userId);
-        return ((CustomModelMapper) modelMapper).mapAll(friendships, UserFriendDTO.class);
+        return ((CustomModelMapper) modelMapper).mapAll(friendships, FriendshipDTO.class);
     }
 }
