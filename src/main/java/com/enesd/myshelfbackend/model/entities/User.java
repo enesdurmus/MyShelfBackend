@@ -38,9 +38,6 @@ public class User extends Auditable implements UserDetails {
     @OneToMany(mappedBy = "userId", fetch = FetchType.LAZY)
     private Set<Friendship> friendships;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private Set<Wishlist> wishlists;
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();

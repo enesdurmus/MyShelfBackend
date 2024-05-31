@@ -1,44 +1,55 @@
 package com.enesd.myshelfbackend.services;
 
-import com.enesd.myshelfbackend.dto.WishlistDTO;
-import com.enesd.myshelfbackend.enums.ContentType;
-import com.enesd.myshelfbackend.model.entities.User;
-import com.enesd.myshelfbackend.model.entities.Wishlist;
-import com.enesd.myshelfbackend.model.request.CreateWishlistRequest;
-import com.enesd.myshelfbackend.repository.jpa.UserRepository;
-import com.enesd.myshelfbackend.repository.jpa.WishlistRepository;
+import com.enesd.myshelfbackend.dto.UserBookWishlistDTO;
+import com.enesd.myshelfbackend.dto.UserMediaContentWishlistDTO;
+import com.enesd.myshelfbackend.model.entities.*;
+import com.enesd.myshelfbackend.repository.jpa.*;
 import com.enesd.myshelfbackend.utils.CustomModelMapper;
 import lombok.AllArgsConstructor;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 @AllArgsConstructor
 public class WishlistService {
-    private final WishlistRepository wishlistRepository;
-    private final CustomModelMapper modelMapper;
+    private final UserBookWishlistRepository userBookWishlistRepository;
+    private final UserMediaContentWishlistRepository userMediaContentWishlistRepository;
+    private final BookEntityRepository bookEntityRepository;
+    private final MediaContentEntityRepository mediaContentEntityRepository;
     private final UserRepository userRepository;
+    private final CustomModelMapper modelMapper;
 
-    public WishlistDTO createWishlist(User user, CreateWishlistRequest createWishlistRequest) {
-        User userRef = userRepository.getReferenceById(user.getId());//TODO Check "check detached entity passed to persist" exception
-        Wishlist wishlist = new Wishlist();
-        wishlist.setUser(userRef);
-        wishlist.setContentId(createWishlistRequest.getContentId());
-        wishlist.setContentType(createWishlistRequest.getContentType());
-        wishlistRepository.save(wishlist);
-        return modelMapper.map(wishlist, WishlistDTO.class);
+    public void addBookToWishlist(User user, int bookId) {
+        BookEntity bookEntity = bookEntityRepository.getReferenceById(bookId);
+        User userRef = userRepository.getReferenceById(user.getId());
+        UserBookWishlist userBookWishlist = new UserBookWishlist();
+        userBookWishlist.setBook(bookEntity);
+        userBookWishlist.setUser(userRef);
+        userBookWishlistRepository.save(userBookWishlist);
     }
 
-    public List<WishlistDTO> getWishlists(User user, ContentType contentType) {
-        List<Wishlist> wishlists = wishlistRepository.findAllByUserAndContentType(user, contentType);
-        return modelMapper.mapAll(wishlists, WishlistDTO.class);
+    public void addMediaContentToWishlist(User user, int mediaContentId) {
+        MediaContentEntity mediaContentEntity = mediaContentEntityRepository.getReferenceById(mediaContentId);
+        User userRef = userRepository.getReferenceById(user.getId());
+        UserMediaContentWishlist userMediaContentWishlist = new UserMediaContentWishlist();
+        userMediaContentWishlist.setMediaContent(mediaContentEntity);
+        userMediaContentWishlist.setUser(userRef);
+        userMediaContentWishlistRepository.save(userMediaContentWishlist);
     }
 
-    @Transactional
-    public void deleteWishlist(Long id) {
-        wishlistRepository.deleteById(id);
+    public List<UserMediaContentWishlistDTO> getMediaContentWishlists(User user) {
+        List<UserMediaContentWishlist> userMediaContentWishlists = userMediaContentWishlistRepository.findAllByUser(user);
+        return modelMapper.mapAll(userMediaContentWishlists, UserMediaContentWishlistDTO.class);
     }
+
+    public List<UserBookWishlistDTO> getBookWishlists(User user) {
+        List<UserBookWishlist> userBookWishlists = userBookWishlistRepository.findAllByUser(user);
+        return modelMapper.mapAll(userBookWishlists, UserBookWishlistDTO.class);
+    }
+
+//    @Transactional
+//    public void deleteWishlist(Long id) {
+//        wishlistRepository.deleteById(id);
+//    }
 }
