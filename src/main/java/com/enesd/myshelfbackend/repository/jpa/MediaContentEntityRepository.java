@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface MediaContentEntityRepository extends JpaRepository<MediaContentEntity, Integer> {
-    List<MediaContentEntity> findByIdNotIn(List<Integer> mediaContentIds, Pageable pageable);
+public interface MediaContentEntityRepository extends JpaRepository<MediaContentEntity, Long> {
+    List<MediaContentEntity> findByIdNotIn(List<Long> mediaContentIds, Pageable pageable);
 }

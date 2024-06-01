@@ -25,7 +25,7 @@ class BookDocumentRepositoryImpl implements IBookDocumentRepositoryCustom {
     private final ElasticsearchOperations elasticsearchOperations;
 
     @Override
-    public List<Integer> findAllIds() {
+    public List<Long> findAllIds() {
         IndexCoordinates index = IndexCoordinates.of("books");
         String[] includeFields = new String[]{"id"};
 
@@ -39,7 +39,7 @@ class BookDocumentRepositoryImpl implements IBookDocumentRepositoryCustom {
         SearchHitsIterator<BookDocument> stream = elasticsearchOperations.searchForStream(searchQuery, BookDocument.class,
                 index);
 
-        List<Integer> bookIds = new ArrayList<>();
+        List<Long> bookIds = new ArrayList<>();
         while (stream.hasNext()) {
             bookIds.add(stream.next().getContent().getId());
         }

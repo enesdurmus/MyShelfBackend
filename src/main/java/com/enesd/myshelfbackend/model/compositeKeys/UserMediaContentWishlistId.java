@@ -11,5 +11,5 @@ import java.util.UUID;
 @AllArgsConstructor
 public class UserMediaContentWishlistId {
     private UUID user;
-    private int mediaContent;
+    private Long mediaContent;
 }

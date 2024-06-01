@@ -21,7 +21,7 @@ public class BookService {
         return bookDocumentRepository.findWithSearchTerm(searchTerm);
     }
 
-    public BookEntity findBookById(int bookId) {
+    public BookEntity findBookById(Long bookId) {
         return bookEntityRepository.findById(bookId).orElseThrow(EntityNotFoundException::new);
     }
 }

@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface IBookDocumentRepositoryCustom {
 
-    List<Integer> findAllIds();
+    List<Long> findAllIds();
 
     List<BookDocument> findWithSearchTerm(String searchTerm);
 }

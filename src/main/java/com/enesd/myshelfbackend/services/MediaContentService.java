@@ -21,7 +21,7 @@ public class MediaContentService {
         return mediaContentDocumentRepository.findWithSearchTerm(searchTerm);
     }
 
-    public MediaContentEntity findMediaContentById(int mediaContentId) {
+    public MediaContentEntity findMediaContentById(Long mediaContentId) {
         return mediaContentEntityRepository.findById(mediaContentId).orElseThrow(EntityNotFoundException::new);
     }
 }

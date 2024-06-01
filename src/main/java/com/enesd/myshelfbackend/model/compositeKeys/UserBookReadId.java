@@ -13,5 +13,5 @@ import java.util.UUID;
 @AllArgsConstructor
 public class UserBookReadId implements Serializable {
     private UUID userId;
-    private int bookId;
+    private Long bookId;
 }

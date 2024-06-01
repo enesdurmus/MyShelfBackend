@@ -1,16 +1,12 @@
 package com.enesd.myshelfbackend.model.abstracts;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Data;
 
 @Data
 @MappedSuperclass
-public abstract class Book {
-    @Id
-    @Column(name = "id")
-    private int id;
+public abstract class Book extends Content {
 
     @Column(name = "isbn", unique = true)
     private String isbn;

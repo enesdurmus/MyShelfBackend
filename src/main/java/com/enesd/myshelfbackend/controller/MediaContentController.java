@@ -26,7 +26,7 @@ public class MediaContentController {
     }
 
     @GetMapping("")
-    public ResponseEntity<GenericResponse<MediaContentEntity>> findMediaContentById(@RequestParam(required = true) int mediaContentId) {
+    public ResponseEntity<GenericResponse<MediaContentEntity>> findMediaContentById(@RequestParam(required = true) Long mediaContentId) {
         return ResponseEntity.ok(GenericResponse.success(mediaContentService.findMediaContentById(mediaContentId)));
     }
 }

@@ -12,5 +12,5 @@ import java.util.UUID;
 @AllArgsConstructor
 public class UserBookWishlistId implements Serializable {
     private UUID user;
-    private int book;
+    private Long book;
 }

@@ -3,8 +3,6 @@ package com.enesd.myshelfbackend.controller;
 import com.enesd.myshelfbackend.dto.UserBookWishlistDTO;
 import com.enesd.myshelfbackend.dto.UserMediaContentWishlistDTO;
 import com.enesd.myshelfbackend.model.entities.User;
-import com.enesd.myshelfbackend.model.entities.UserBookWishlist;
-import com.enesd.myshelfbackend.model.entities.UserMediaContentWishlist;
 import com.enesd.myshelfbackend.model.response.GenericResponse;
 import com.enesd.myshelfbackend.services.WishlistService;
 import lombok.AllArgsConstructor;
@@ -25,7 +23,7 @@ public class WishlistController {
 
     @PreAuthorize("hasAuthority('APP_USER') or hasAuthority('ADMIN')")
     @PostMapping("/books/{bookId}")
-    public ResponseEntity<Void> addBookToWishlist(@PathVariable int bookId) {
+    public ResponseEntity<Void> addBookToWishlist(@PathVariable Long bookId) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         wishlistService.addBookToWishlist(user, bookId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
@@ -33,7 +31,7 @@ public class WishlistController {
 
     @PreAuthorize("hasAuthority('APP_USER') or hasAuthority('ADMIN')")
     @PostMapping("/media_contents/{mediaContentId}")
-    public ResponseEntity<Void> addMediaContentToWishlist(@PathVariable int mediaContentId) {
+    public ResponseEntity<Void> addMediaContentToWishlist(@PathVariable Long mediaContentId) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         wishlistService.addMediaContentToWishlist(user, mediaContentId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

@@ -27,7 +27,7 @@ public class MediaContentDocumentRepositoryImpl implements IMediaContentDocument
     private final ElasticsearchOperations elasticsearchOperations;
 
     @Override
-    public List<Integer> findAllIds() {
+    public List<Long> findAllIds() {
         IndexCoordinates index = IndexCoordinates.of("media_contents");
         String[] includeFields = new String[]{"id"};
 
@@ -41,7 +41,7 @@ public class MediaContentDocumentRepositoryImpl implements IMediaContentDocument
         SearchHitsIterator<MediaContentDocument> stream = elasticsearchOperations.searchForStream(searchQuery, MediaContentDocument.class,
                 index);
 
-        List<Integer> mediaContentIds = new ArrayList<>();
+        List<Long> mediaContentIds = new ArrayList<>();
         while (stream.hasNext()) {
             mediaContentIds.add(stream.next().getContent().getId());
         }

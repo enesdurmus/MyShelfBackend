@@ -34,11 +34,11 @@ public class ElasticSynchronizer {
     @Scheduled(cron = "0 0 0 * * SAT")
     @SchedulerLock(name = "ElasticBookSynchronizer.synchronizeBooksWithRDBM", lockAtLeastFor = "PT15S", lockAtMostFor = "PT30S")
     public void synchronizeBooksWithRDBM() {
-        List<Integer> elasticBookIds = bookDocumentRepository.findAllIds();
+        List<Long> elasticBookIds = bookDocumentRepository.findAllIds();
 
         if (elasticBookIds.isEmpty()) {
             logger.info("There is no entry in ES add dummy value");
-            elasticBookIds.add(0);
+            elasticBookIds.add(0L);
         }
 
         boolean isSynchronizing = true;
@@ -66,11 +66,11 @@ public class ElasticSynchronizer {
     @Scheduled(cron = "0 0 0 * * FRI")
     @SchedulerLock(name = "ElasticBookSynchronizer.synchronizeMediaContentsWithRDBM", lockAtLeastFor = "PT15S", lockAtMostFor = "PT30S")
     public void synchronizeMediaContentsWithRDBM() {
-        List<Integer> elasticMediaContentIds = mediaContentDocumentRepository.findAllIds();
+        List<Long> elasticMediaContentIds = mediaContentDocumentRepository.findAllIds();
 
         if (elasticMediaContentIds.isEmpty()) {
             logger.info("There is no entry in ES add dummy value");
-            elasticMediaContentIds.add(0);
+            elasticMediaContentIds.add(0L);
         }
 
         boolean isSynchronizing = true;

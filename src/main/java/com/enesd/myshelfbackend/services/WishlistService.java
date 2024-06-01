@@ -20,7 +20,7 @@ public class WishlistService {
     private final UserRepository userRepository;
     private final CustomModelMapper modelMapper;
 
-    public void addBookToWishlist(User user, int bookId) {
+    public void addBookToWishlist(User user, Long bookId) {
         BookEntity bookEntity = bookEntityRepository.getReferenceById(bookId);
         User userRef = userRepository.getReferenceById(user.getId());
         UserBookWishlist userBookWishlist = new UserBookWishlist();
@@ -29,7 +29,7 @@ public class WishlistService {
         userBookWishlistRepository.save(userBookWishlist);
     }
 
-    public void addMediaContentToWishlist(User user, int mediaContentId) {
+    public void addMediaContentToWishlist(User user, Long mediaContentId) {
         MediaContentEntity mediaContentEntity = mediaContentEntityRepository.getReferenceById(mediaContentId);
         User userRef = userRepository.getReferenceById(user.getId());
         UserMediaContentWishlist userMediaContentWishlist = new UserMediaContentWishlist();

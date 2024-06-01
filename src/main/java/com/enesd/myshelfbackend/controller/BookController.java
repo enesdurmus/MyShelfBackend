@@ -24,7 +24,7 @@ public class BookController {
     }
 
     @GetMapping("")
-    public ResponseEntity<GenericResponse<BookEntity>> findBookById(@RequestParam(required = true) int bookId) {
+    public ResponseEntity<GenericResponse<BookEntity>> findBookById(@RequestParam(required = true) Long bookId) {
         return ResponseEntity.ok(GenericResponse.success(bookService.findBookById(bookId)));
     }
 }

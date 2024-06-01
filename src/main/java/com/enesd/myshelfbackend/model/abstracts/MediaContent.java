@@ -7,11 +7,7 @@ import java.time.Instant;
 
 @Data
 @MappedSuperclass
-public abstract class MediaContent {
-
-    @Id
-    @Column(name = "id")
-    private Integer id;
+public abstract class MediaContent extends Content {
 
     @Column(name = "imdb_id", unique = true)
     private String imdbId;

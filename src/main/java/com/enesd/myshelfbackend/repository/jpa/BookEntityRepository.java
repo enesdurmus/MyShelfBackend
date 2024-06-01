@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface BookEntityRepository extends JpaRepository<BookEntity, Integer> {
-    List<BookEntity> findByIdNotIn(List<Integer> bookIds, Pageable pageable);
+public interface BookEntityRepository extends JpaRepository<BookEntity, Long> {
+    List<BookEntity> findByIdNotIn(List<Long> bookIds, Pageable pageable);
 }
