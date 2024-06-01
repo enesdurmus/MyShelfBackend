@@ -1,5 +1,6 @@
 package com.enesd.myshelfbackend.controller;
 
+import com.enesd.myshelfbackend.dto.CollectionDTO;
 import com.enesd.myshelfbackend.model.abstracts.Content;
 import com.enesd.myshelfbackend.model.entities.Collection;
 import com.enesd.myshelfbackend.model.entities.User;
@@ -20,14 +21,15 @@ public class CollectionController {
     private final CollectionService collectionService;
 
     @PostMapping(name = "")
-    public ResponseEntity<GenericResponse<Collection>> createCollection(@RequestBody CreateCollectionRequest createCollectionRequest) {
+    public ResponseEntity<GenericResponse<CollectionDTO>> createCollection(@RequestBody CreateCollectionRequest createCollectionRequest) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return ResponseEntity.ok(GenericResponse.success(collectionService.createCollection(user, createCollectionRequest)));
     }
 
     @GetMapping(name = "")
-    public ResponseEntity<GenericResponse<List<Collection>>> getCollections() {
-        return ResponseEntity.ok(GenericResponse.success(collectionService.getCollections()));
+    public ResponseEntity<GenericResponse<List<CollectionDTO>>> getCollections() {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return ResponseEntity.ok(GenericResponse.success(collectionService.getCollectionsOfUser(user)));
     }
 
     @PostMapping("/{collectionId}/contents")
