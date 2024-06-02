@@ -1,9 +1,11 @@
 package com.enesd.myshelfbackend.controller;
 
+import com.enesd.myshelfbackend.dto.BookDTO;
+import com.enesd.myshelfbackend.dto.CollectionBookDTO;
 import com.enesd.myshelfbackend.dto.CollectionDTO;
-import com.enesd.myshelfbackend.model.abstracts.Content;
-import com.enesd.myshelfbackend.model.entities.Collection;
+import com.enesd.myshelfbackend.model.entities.CollectionBook;
 import com.enesd.myshelfbackend.model.entities.User;
+import com.enesd.myshelfbackend.model.request.AddContentToCollectionRequest;
 import com.enesd.myshelfbackend.model.request.CreateCollectionRequest;
 import com.enesd.myshelfbackend.model.response.GenericResponse;
 import com.enesd.myshelfbackend.services.CollectionService;
@@ -32,8 +34,13 @@ public class CollectionController {
         return ResponseEntity.ok(GenericResponse.success(collectionService.getCollectionsOfUser(user)));
     }
 
-    @PostMapping("/{collectionId}/contents")
-    public ResponseEntity<GenericResponse<Collection>> addContentToCollection(@PathVariable Long collectionId, @RequestBody Content content) {
-        return ResponseEntity.ok(GenericResponse.success(collectionService.addContentToCollection(collectionId, content)));
+    @PostMapping("/{collectionId}/books")
+    public ResponseEntity<GenericResponse<CollectionBookDTO>> addBookToCollection(@PathVariable Long collectionId, @RequestBody AddContentToCollectionRequest addContentToCollectionRequest) {
+        return ResponseEntity.ok(GenericResponse.success(collectionService.addBookToCollection(collectionId, addContentToCollectionRequest)));
+    }
+
+    @GetMapping("/{collectionId}/books")
+    public ResponseEntity<GenericResponse<List<BookDTO>>> getBooksOfCollectionById(@PathVariable Long collectionId) {
+        return ResponseEntity.ok(GenericResponse.success(collectionService.getBooksOfCollectionById(collectionId)));
     }
 }
