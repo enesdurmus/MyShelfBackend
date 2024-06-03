@@ -6,7 +6,6 @@ import com.enesd.myshelfbackend.model.response.GenericResponse;
 import com.enesd.myshelfbackend.services.BookService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

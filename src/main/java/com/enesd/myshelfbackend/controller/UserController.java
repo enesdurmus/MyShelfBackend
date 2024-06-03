@@ -1,12 +1,7 @@
 package com.enesd.myshelfbackend.controller;
 
-import com.enesd.myshelfbackend.dto.SignInDTO;
-import com.enesd.myshelfbackend.dto.UserDTO;
-import com.enesd.myshelfbackend.enums.ClientType;
 import com.enesd.myshelfbackend.model.entities.User;
-import com.enesd.myshelfbackend.model.request.SignUpRequest;
 import com.enesd.myshelfbackend.model.request.UpdateDisplayNameRequest;
-import com.enesd.myshelfbackend.model.response.GenericResponse;
 import com.enesd.myshelfbackend.services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
