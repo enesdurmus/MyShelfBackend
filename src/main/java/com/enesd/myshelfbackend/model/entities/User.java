@@ -26,8 +26,11 @@ public class User extends Auditable implements UserDetails {
     @Column(name = "user_name", nullable = false, unique = true)
     private String username;
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
+
+    @Column(name = "display_name", nullable = false)
+    private String displayName;
 
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "user_roles",
@@ -45,6 +48,12 @@ public class User extends Auditable implements UserDetails {
             grantedAuthorities.add(new SimpleGrantedAuthority(roleType.toString()));
         }
         return grantedAuthorities;
+    }
+
+    @PrePersist
+    private void beforePersist() {
+        System.out.println("I'm New");
+        displayName = "User_" + UUID.randomUUID().toString();
     }
 
     @Override
