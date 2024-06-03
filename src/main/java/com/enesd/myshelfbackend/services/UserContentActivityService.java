@@ -3,7 +3,6 @@ package com.enesd.myshelfbackend.services;
 import com.enesd.myshelfbackend.dto.UserContentActivityDTO;
 import com.enesd.myshelfbackend.enums.ContentType;
 import com.enesd.myshelfbackend.model.entities.User;
-import com.enesd.myshelfbackend.model.entities.UserContentActivity;
 import com.enesd.myshelfbackend.model.request.CreateContentActivityRequest;
 import com.enesd.myshelfbackend.repository.jpa.UserContentActivityRepository;
 import com.enesd.myshelfbackend.utils.CustomModelMapper;
