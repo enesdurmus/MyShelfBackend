@@ -1,8 +1,6 @@
 package com.enesd.myshelfbackend.services;
 
-import com.enesd.myshelfbackend.dto.BookDTO;
-import com.enesd.myshelfbackend.dto.CollectionBookDTO;
-import com.enesd.myshelfbackend.dto.CollectionDTO;
+import com.enesd.myshelfbackend.dto.*;
 import com.enesd.myshelfbackend.model.entities.*;
 import com.enesd.myshelfbackend.model.request.AddContentToCollectionRequest;
 import com.enesd.myshelfbackend.model.request.CreateCollectionRequest;
@@ -11,9 +9,7 @@ import com.enesd.myshelfbackend.utils.CustomModelMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,7 +20,6 @@ public class CollectionService {
     private final CollectionMediaContentRepository collectionMediaContentRepository;
     private final BookEntityRepository bookEntityRepository;
     private final MediaContentEntityRepository mediaContentEntityRepository;
-
     private final CustomModelMapper modelMapper;
 
     public CollectionDTO createCollection(User user, CreateCollectionRequest createCollectionRequest) {
@@ -56,5 +51,22 @@ public class CollectionService {
         CollectionBook collectionBook = new CollectionBook(collection, book);
         collectionBookRepository.save(collectionBook);
         return modelMapper.map(collectionBook, CollectionBookDTO.class);
+    }
+
+    public CollectionMediaContentDTO addMediaContentToCollection(Long collectionId, AddContentToCollectionRequest addContentToCollectionRequest) {
+        Collection collection = collectionRepository.getReferenceById(collectionId);
+        MediaContentEntity mediaContentEntity = mediaContentEntityRepository.getReferenceById(addContentToCollectionRequest.getContentId());
+        CollectionMediaContent collectionMediaContent = new CollectionMediaContent(collection, mediaContentEntity);
+        collectionMediaContentRepository.save(collectionMediaContent);
+        return modelMapper.map(collectionMediaContent, CollectionMediaContentDTO.class);
+    }
+
+    public List<MediaContentDTO> getMediaContentsOfCollectionById(Long collectionId) {
+        Collection collection = collectionRepository.getReferenceById(collectionId);
+        List<CollectionMediaContent> collectionMediaContents = collectionMediaContentRepository.findAllByCollection(collection);
+        return collectionMediaContents
+                .stream()
+                .map(collectionMediaContent -> modelMapper.map(collectionMediaContent.getMediaContent(), MediaContentDTO.class))
+                .collect(Collectors.toList());
     }
 }

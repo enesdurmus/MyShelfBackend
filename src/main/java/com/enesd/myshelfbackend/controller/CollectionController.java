@@ -1,9 +1,6 @@
 package com.enesd.myshelfbackend.controller;
 
-import com.enesd.myshelfbackend.dto.BookDTO;
-import com.enesd.myshelfbackend.dto.CollectionBookDTO;
-import com.enesd.myshelfbackend.dto.CollectionDTO;
-import com.enesd.myshelfbackend.model.entities.CollectionBook;
+import com.enesd.myshelfbackend.dto.*;
 import com.enesd.myshelfbackend.model.entities.User;
 import com.enesd.myshelfbackend.model.request.AddContentToCollectionRequest;
 import com.enesd.myshelfbackend.model.request.CreateCollectionRequest;
@@ -42,5 +39,15 @@ public class CollectionController {
     @GetMapping("/{collectionId}/books")
     public ResponseEntity<GenericResponse<List<BookDTO>>> getBooksOfCollectionById(@PathVariable Long collectionId) {
         return ResponseEntity.ok(GenericResponse.success(collectionService.getBooksOfCollectionById(collectionId)));
+    }
+
+    @PostMapping("/{collectionId}/media_contents")
+    public ResponseEntity<GenericResponse<CollectionMediaContentDTO>> addMediaContentToCollection(@PathVariable Long collectionId, @RequestBody AddContentToCollectionRequest addContentToCollectionRequest) {
+        return ResponseEntity.ok(GenericResponse.success(collectionService.addMediaContentToCollection(collectionId, addContentToCollectionRequest)));
+    }
+
+    @GetMapping("/{collectionId}/media_contents")
+    public ResponseEntity<GenericResponse<List<MediaContentDTO>>> getMediaContentsOfCollectionById(@PathVariable Long collectionId) {
+        return ResponseEntity.ok(GenericResponse.success(collectionService.getMediaContentsOfCollectionById(collectionId)));
     }
 }

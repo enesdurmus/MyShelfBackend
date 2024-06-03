@@ -6,6 +6,7 @@ import com.enesd.myshelfbackend.model.compositeKeys.MediaContentCollectionId;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Persistable;
 
 @Data
@@ -13,6 +14,7 @@ import org.springframework.data.domain.Persistable;
 @IdClass(MediaContentCollectionId.class)
 @Table(name = "collections_media_contents")
 @AllArgsConstructor
+@NoArgsConstructor
 public class CollectionMediaContent extends Auditable implements Persistable<BookCollectionId> {
     @Id
     @ManyToOne(fetch = FetchType.LAZY)

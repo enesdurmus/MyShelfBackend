@@ -9,8 +9,8 @@ import java.time.Instant;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CollectionBookDTO {
+public class CollectionMediaContentDTO {
     private Long collectionId;
-    private Long bookId;
+    private Long mediaContentId;
     private Instant createdAt;
 }
