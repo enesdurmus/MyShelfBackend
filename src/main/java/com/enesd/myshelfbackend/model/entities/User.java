@@ -2,16 +2,15 @@ package com.enesd.myshelfbackend.model.entities;
 
 import com.enesd.myshelfbackend.enums.RoleType;
 import com.enesd.myshelfbackend.model.abstracts.Auditable;
+import com.github.javafaker.Faker;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.*;
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
 
 @Entity
 @Data
@@ -52,8 +51,8 @@ public class User extends Auditable implements UserDetails {
 
     @PrePersist
     private void beforePersist() {
-        System.out.println("I'm New");
-        displayName = "User_" + UUID.randomUUID().toString();
+        Faker faker = new Faker();
+        displayName = "user_" + faker.name().username();
     }
 
     @Override
