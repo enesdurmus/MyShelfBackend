@@ -21,14 +21,14 @@ public class CollectionController {
     private final CollectionService collectionService;
 
     @PreAuthorize("hasAuthority('APP_USER') or hasAuthority('ADMIN')")
-    @PostMapping(name = "")
+    @PostMapping()
     public ResponseEntity<GenericResponse<CollectionDTO>> createCollection(@RequestBody CreateCollectionRequest createCollectionRequest) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return ResponseEntity.ok(GenericResponse.success(collectionService.createCollection(user, createCollectionRequest)));
     }
 
     @PreAuthorize("hasAuthority('APP_USER') or hasAuthority('ADMIN')")
-    @GetMapping(name = "")
+    @GetMapping()
     public ResponseEntity<GenericResponse<List<CollectionDTO>>> getCollections() {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return ResponseEntity.ok(GenericResponse.success(collectionService.getCollectionsOfUser(user)));

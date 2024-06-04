@@ -1,17 +1,19 @@
 package com.enesd.myshelfbackend.controller;
 
+import com.enesd.myshelfbackend.dto.ReviewDTO;
+import com.enesd.myshelfbackend.enums.ContentType;
 import com.enesd.myshelfbackend.model.entities.User;
 import com.enesd.myshelfbackend.model.request.CreateReviewRequest;
+import com.enesd.myshelfbackend.model.response.GenericResponse;
 import com.enesd.myshelfbackend.services.ReviewService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -26,5 +28,11 @@ public class ReviewController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         reviewService.createReview(user, createReviewRequest);
         return ResponseEntity.noContent().build();
+    }
+
+    @PreAuthorize("hasAuthority('APP_USER') or hasAuthority('ADMIN')")
+    @GetMapping("/{contentType}/{contentId}")
+    public ResponseEntity<GenericResponse<List<ReviewDTO>>> getReviewsOfContent(@PathVariable ContentType contentType, @PathVariable Long contentId) {
+        return ResponseEntity.ok(GenericResponse.success(reviewService.getReviewsOfContent(contentType, contentId)));
     }
 }
