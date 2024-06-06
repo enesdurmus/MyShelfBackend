@@ -40,28 +40,4 @@ public class CollectionController {
     public ResponseEntity<GenericResponse<List<CollectionDTO>>> getPublicCollectionsOfUser(@RequestParam(required = true) UUID userId) {
         return ResponseEntity.ok(GenericResponse.success(collectionService.getPublicCollectionsOfUser(userId)));
     }
-
-    @PreAuthorize("hasAuthority('APP_USER') or hasAuthority('ADMIN')")
-    @PostMapping("/{collectionId}/books")
-    public ResponseEntity<GenericResponse<CollectionBookDTO>> addBookToCollection(@PathVariable Long collectionId, @RequestBody AddContentToCollectionRequest addContentToCollectionRequest) {
-        return ResponseEntity.ok(GenericResponse.success(collectionService.addBookToCollection(collectionId, addContentToCollectionRequest)));
-    }
-
-    @PreAuthorize("hasAuthority('APP_USER') or hasAuthority('ADMIN')")
-    @GetMapping("/{collectionId}/books")
-    public ResponseEntity<GenericResponse<List<BookDTO>>> getBooksOfCollectionById(@PathVariable Long collectionId) {
-        return ResponseEntity.ok(GenericResponse.success(collectionService.getBooksOfCollectionById(collectionId)));
-    }
-
-    @PreAuthorize("hasAuthority('APP_USER') or hasAuthority('ADMIN')")
-    @PostMapping("/{collectionId}/media_contents")
-    public ResponseEntity<GenericResponse<CollectionMediaContentDTO>> addMediaContentToCollection(@PathVariable Long collectionId, @RequestBody AddContentToCollectionRequest addContentToCollectionRequest) {
-        return ResponseEntity.ok(GenericResponse.success(collectionService.addMediaContentToCollection(collectionId, addContentToCollectionRequest)));
-    }
-
-    @PreAuthorize("hasAuthority('APP_USER') or hasAuthority('ADMIN')")
-    @GetMapping("/{collectionId}/media_contents")
-    public ResponseEntity<GenericResponse<List<MediaContentDTO>>> getMediaContentsOfCollectionById(@PathVariable Long collectionId) {
-        return ResponseEntity.ok(GenericResponse.success(collectionService.getMediaContentsOfCollectionById(collectionId)));
-    }
 }
