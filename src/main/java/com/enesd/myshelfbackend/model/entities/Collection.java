@@ -27,6 +27,9 @@ public class Collection extends Auditable {
     @Column(name = "content_type", nullable = false)
     private ContentType contentType;
 
+    @Column(name = "is_public_view", nullable = false)
+    private boolean isPublicView;
+
     @OneToMany(mappedBy = "collection", cascade = CascadeType.ALL)
     private Set<CollectionBook> collectionBooks = new HashSet<>();
 
