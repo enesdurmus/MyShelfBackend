@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -20,6 +21,7 @@ public class CollectionService {
     private final CollectionMediaContentRepository collectionMediaContentRepository;
     private final BookEntityRepository bookEntityRepository;
     private final MediaContentEntityRepository mediaContentEntityRepository;
+    private final UserRepository userRepository;
     private final CustomModelMapper modelMapper;
 
     public CollectionDTO createCollection(User user, CreateCollectionRequest createCollectionRequest) {
@@ -33,6 +35,12 @@ public class CollectionService {
 
     public List<CollectionDTO> getCollectionsOfUser(User user) {
         List<Collection> collections = collectionRepository.findAllByUser(user);
+        return modelMapper.mapAll(collections, CollectionDTO.class);
+    }
+
+    public List<CollectionDTO> getPublicCollectionsOfUser(UUID userId) {
+        User user = userRepository.getReferenceById(userId);
+        List<Collection> collections = collectionRepository.findAllByUserAndIsPublicViewTrue(user);
         return modelMapper.mapAll(collections, CollectionDTO.class);
     }
 

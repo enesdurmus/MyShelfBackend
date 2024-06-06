@@ -13,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/collections")
@@ -32,6 +33,12 @@ public class CollectionController {
     public ResponseEntity<GenericResponse<List<CollectionDTO>>> getCollections() {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return ResponseEntity.ok(GenericResponse.success(collectionService.getCollectionsOfUser(user)));
+    }
+
+    @PreAuthorize("hasAuthority('APP_USER') or hasAuthority('ADMIN')")
+    @GetMapping("/public")
+    public ResponseEntity<GenericResponse<List<CollectionDTO>>> getPublicCollectionsOfUser(@RequestParam(required = true) UUID userId) {
+        return ResponseEntity.ok(GenericResponse.success(collectionService.getPublicCollectionsOfUser(userId)));
     }
 
     @PreAuthorize("hasAuthority('APP_USER') or hasAuthority('ADMIN')")

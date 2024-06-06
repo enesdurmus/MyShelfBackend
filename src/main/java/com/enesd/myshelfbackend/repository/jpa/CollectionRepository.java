@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface CollectionRepository extends JpaRepository<Collection, Long> {
     List<Collection> findAllByUser(User user);
+
+    List<Collection> findAllByUserAndIsPublicViewTrue(User user);
 }
