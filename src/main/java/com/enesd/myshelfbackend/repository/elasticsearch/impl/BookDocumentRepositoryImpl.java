@@ -25,31 +25,6 @@ class BookDocumentRepositoryImpl implements IBookDocumentRepositoryCustom {
     private final ElasticsearchOperations elasticsearchOperations;
 
     @Override
-    public List<Long> findAllIds() {
-        IndexCoordinates index = IndexCoordinates.of("books");
-        String[] includeFields = new String[]{"id"};
-
-        Query searchQuery = NativeQuery.builder()
-                .withQuery(q -> q
-                        .matchAll(ma -> ma))
-                .withPageable(PageRequest.of(0, 10000))
-                .withSourceFilter(new FetchSourceFilter(includeFields, null))
-                .build();
-
-        SearchHitsIterator<BookDocument> stream = elasticsearchOperations.searchForStream(searchQuery, BookDocument.class,
-                index);
-
-        List<Long> bookIds = new ArrayList<>();
-        while (stream.hasNext()) {
-            bookIds.add(stream.next().getContent().getId());
-        }
-
-        stream.close();
-        logger.info(String.valueOf(bookIds.size()));
-        return bookIds;
-    }
-
-    @Override
     public List<BookDocument> findWithSearchTerm(String searchTerm) {
         IndexCoordinates index = IndexCoordinates.of("books");
         final Query searchQuery = NativeQuery.builder()
