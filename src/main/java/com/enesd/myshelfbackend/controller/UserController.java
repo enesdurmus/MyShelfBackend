@@ -18,7 +18,7 @@ public class UserController {
 
     private final UserService userService;
 
-    @PreAuthorize("hasAuthority('APP_USER') or hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     @PutMapping("/display_name")
     public ResponseEntity<Void> updateDisplayName(@Validated @RequestBody UpdateDisplayNameRequest updateDisplayNameRequest) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

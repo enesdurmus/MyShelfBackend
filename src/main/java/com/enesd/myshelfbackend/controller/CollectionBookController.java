@@ -18,13 +18,13 @@ import java.util.List;
 public class CollectionBookController {
     private final CollectionBookService collectionBookService;
 
-    @PreAuthorize("hasAuthority('APP_USER') or hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     @PostMapping("/{collectionId}")
     public ResponseEntity<GenericResponse<CollectionBookDTO>> addBookToCollection(@PathVariable Long collectionId, @RequestBody AddContentToCollectionRequest addContentToCollectionRequest) {
         return ResponseEntity.ok(GenericResponse.success(collectionBookService.addBookToCollection(collectionId, addContentToCollectionRequest)));
     }
 
-    @PreAuthorize("hasAuthority('APP_USER') or hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     @GetMapping("/{collectionId}")
     public ResponseEntity<GenericResponse<List<BookDTO>>> getBooksOfCollectionById(@PathVariable Long collectionId) {
         return ResponseEntity.ok(GenericResponse.success(collectionBookService.getBooksOfCollectionById(collectionId)));

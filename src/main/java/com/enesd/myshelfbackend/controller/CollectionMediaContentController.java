@@ -18,13 +18,13 @@ import java.util.List;
 public class CollectionMediaContentController {
     private final CollectionMediaContentService collectionMediaContentService;
 
-    @PreAuthorize("hasAuthority('APP_USER') or hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     @PostMapping("/{collectionId}")
     public ResponseEntity<GenericResponse<CollectionMediaContentDTO>> addMediaContentToCollection(@PathVariable Long collectionId, @RequestBody AddContentToCollectionRequest addContentToCollectionRequest) {
         return ResponseEntity.ok(GenericResponse.success(collectionMediaContentService.addMediaContentToCollection(collectionId, addContentToCollectionRequest)));
     }
 
-    @PreAuthorize("hasAuthority('APP_USER') or hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     @GetMapping("/{collectionId}")
     public ResponseEntity<GenericResponse<List<MediaContentDTO>>> getMediaContentsOfCollectionById(@PathVariable Long collectionId) {
         return ResponseEntity.ok(GenericResponse.success(collectionMediaContentService.getMediaContentsOfCollectionById(collectionId)));

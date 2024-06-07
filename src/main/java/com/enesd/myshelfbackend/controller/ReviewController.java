@@ -22,7 +22,7 @@ import java.util.List;
 public class ReviewController {
     private final ReviewService reviewService;
 
-    @PreAuthorize("hasAuthority('APP_USER') or hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     @PostMapping
     public ResponseEntity<Void> createReview(@RequestBody @Validated CreateReviewRequest createReviewRequest) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -30,7 +30,7 @@ public class ReviewController {
         return ResponseEntity.noContent().build();
     }
 
-    @PreAuthorize("hasAuthority('APP_USER') or hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     @GetMapping("/{contentType}/{contentId}")
     public ResponseEntity<GenericResponse<List<ReviewDTO>>> getReviewsOfContent(@PathVariable ContentType contentType, @PathVariable Long contentId) {
         return ResponseEntity.ok(GenericResponse.success(reviewService.getReviewsOfContent(contentType, contentId)));
