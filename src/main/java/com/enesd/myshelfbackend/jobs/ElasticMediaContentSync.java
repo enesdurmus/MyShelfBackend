@@ -12,6 +12,7 @@ import com.enesd.myshelfbackend.repository.jpa.MediaContentEntityRepository;
 import com.enesd.myshelfbackend.repository.jpa.SyncStatusRepository;
 import com.enesd.myshelfbackend.utils.CustomModelMapper;
 import lombok.AllArgsConstructor;
+import net.javacrumbs.shedlock.spring.annotation.SchedulerLock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.PageRequest;
@@ -35,6 +36,7 @@ public class ElasticMediaContentSync {
 
     @Transactional
     @Scheduled(fixedRateString = "60000")
+    @SchedulerLock(name = "ElasticMediaContentSync.syncMediaContents", lockAtLeastFor = "PT15S", lockAtMostFor = "PT30S")
     public void syncMediaContents() {
         try {
             SyncStatus syncStatus = syncStatusRepository.findByEntityName(MediaContent.class.getName())
