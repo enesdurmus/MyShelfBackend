@@ -1,15 +1,19 @@
 package com.enesd.myshelfbackend.seeders;
 
+import com.enesd.myshelfbackend.enums.SubscriptionType;
 import com.enesd.myshelfbackend.model.entities.BookEntity;
 import com.enesd.myshelfbackend.model.entities.MediaContentEntity;
+import com.enesd.myshelfbackend.model.entities.Subscription;
 import com.enesd.myshelfbackend.repository.jpa.BookEntityRepository;
 import com.enesd.myshelfbackend.repository.jpa.MediaContentEntityRepository;
+import com.enesd.myshelfbackend.repository.jpa.SubscriptionRepository;
 import com.github.javafaker.Faker;
 import lombok.AllArgsConstructor;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 
 @Service
@@ -18,11 +22,13 @@ public class DatabaseSeeder {
 
     private BookEntityRepository bookEntityRepository;
     private MediaContentEntityRepository mediaContentEntityRepository;
+    private SubscriptionRepository subscriptionRepository;
 
     @EventListener
     public void seed(ContextRefreshedEvent event) {
         seedBookTable();
         seedMediaContentTable();
+        seedSubscriptions();
     }
 
     private void seedBookTable() {
@@ -79,5 +85,15 @@ public class DatabaseSeeder {
             MediaContentEntity mediaContentEntity = mediaContentCreator.create();
             mediaContentEntityRepository.save(mediaContentEntity);
         }
+    }
+
+    private void seedSubscriptions() {
+        Subscription subscription = new Subscription();
+        subscription.setAmount(5);
+        subscription.setSubscriptionType(SubscriptionType.RATE_LIMIT);
+        subscription.setName("test");
+        subscription.setDurationHours(1f);
+        subscription.setPrice(BigDecimal.ONE);
+        subscriptionRepository.save(subscription);
     }
 }
