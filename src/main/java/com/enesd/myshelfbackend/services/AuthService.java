@@ -67,9 +67,9 @@ public class AuthService {
     private Set<RoleType> determineDefaultRoles(ClientType clientType) {
         Set<RoleType> defaultRoles = new HashSet<>();
         if (clientType == ClientType.MOBILE) {
-            defaultRoles.add(RoleType.APP_USER);
+            defaultRoles.add(RoleType.USER);
         } else {
-            defaultRoles.add(RoleType.API_USER);
+            defaultRoles.add(RoleType.DEVELOPER);
         }
         return defaultRoles;
     }

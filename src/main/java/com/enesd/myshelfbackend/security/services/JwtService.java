@@ -1,7 +1,10 @@
 package com.enesd.myshelfbackend.security.services;
 
 import com.enesd.myshelfbackend.enums.RoleType;
+import com.enesd.myshelfbackend.enums.SubscriptionType;
+import com.enesd.myshelfbackend.model.entities.Subscription;
 import com.enesd.myshelfbackend.model.entities.User;
+import com.enesd.myshelfbackend.model.entities.UserSubscription;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
@@ -20,7 +23,7 @@ import java.util.stream.Collectors;
 @Service
 public class JwtService {
 
-    private final String AUTHORITIES_KEY = "authorities";
+    public static final String AUTHORITIES_KEY = "authorities";
 
     @Value("${security.jwt.secret-key}")
     private String secretKey;
