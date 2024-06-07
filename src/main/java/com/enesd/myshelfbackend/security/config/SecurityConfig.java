@@ -1,6 +1,7 @@
 package com.enesd.myshelfbackend.security.config;
 
 import com.enesd.myshelfbackend.filters.JwtAuthorizationFilter;
+import com.enesd.myshelfbackend.filters.RateLimitFilter;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -19,7 +20,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableMethodSecurity(prePostEnabled = true)
 @AllArgsConstructor
 public class SecurityConfig {
-
     private final JwtAuthorizationFilter jwtAuthorizationFilter;
     private final AuthenticationProvider authenticationProvider;
     private final AuthEntryPoint authEntryPoint;

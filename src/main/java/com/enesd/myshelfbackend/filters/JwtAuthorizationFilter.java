@@ -19,8 +19,8 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
-@AllArgsConstructor
 @Component
+@AllArgsConstructor
 public class JwtAuthorizationFilter extends OncePerRequestFilter {
     private static final RequestMatcher authMatcher = new AntPathRequestMatcher("/api/*/auth/**");
 

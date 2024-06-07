@@ -1,5 +1,6 @@
 package com.enesd.myshelfbackend.security.config;
 
+import com.enesd.myshelfbackend.model.entities.User;
 import com.enesd.myshelfbackend.repository.jpa.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
