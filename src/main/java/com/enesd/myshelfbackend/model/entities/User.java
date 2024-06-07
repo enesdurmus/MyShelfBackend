@@ -40,6 +40,9 @@ public class User extends Auditable implements UserDetails {
     @OneToMany(mappedBy = "userId", fetch = FetchType.LAZY)
     private Set<Friendship> friendships;
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private Set<UserSubscription> subscriptions;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
@@ -52,7 +55,7 @@ public class User extends Auditable implements UserDetails {
     @PrePersist
     private void beforePersist() {
         Faker faker = new Faker();
-        displayName = "user_" + faker.name().username();
+        displayName = "user_" + faker.number().digits(12);
     }
 
     @Override
