@@ -30,7 +30,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         final String authHeader = request.getHeader("Authorization");
 
         if (!StringUtils.hasText(authHeader) || !authHeader.startsWith("Bearer")) {
@@ -46,7 +46,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
             }
         }
 
-        throw new UnauthorizedException("Unauthorized");
+        filterChain.doFilter(request, response);
     }
 
     @Override
