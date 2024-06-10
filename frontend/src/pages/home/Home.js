@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Routes } from "react-router-dom";
 import "./Home.css";
-import Navbar from '../../components/navbar/Navbar';
+import TopBar from '../../components/topBar/TopBar';
 
 class Home extends Component {
     constructor(props) {
@@ -13,10 +13,10 @@ class Home extends Component {
 
     render() {
         return (
-            <div className='Home'>
-                <Navbar>
+            <div className='home'>
+                <TopBar>
 
-                </Navbar>
+                </TopBar>
             </div >
         )
     }

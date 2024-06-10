@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import "./Signin.css";
 import cookies from 'js-cookie';
+import api from '../../configs/api';
 
 class Signin extends Component {
     constructor(props) {
@@ -25,27 +26,24 @@ class Signin extends Component {
     handleSignIn = async (event) => {
         const userName = document.getElementById("username").value;
         const password = document.getElementById("password").value;
-
-        const data = {
-            "username": userName,
-            "password": password,
-            "email": userName
-        };
-
         this.setState({ loading: true, error: null });
 
         try {
-            const response = await fetch(`/api/v1/auth/signin`, {
+            const response = await api.request(`/api/v1/auth/signin`, {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(data)
-            })
+                data: {
+                    "username": userName,
+                    "password": password,
+                    "email": userName
+                }
+            });
 
-            const responseData = await response.json();
-            cookies.set("access_token", responseData.data.access_token);
+            console.log("Sign in success!")
+            cookies.set("access_token", response.data.data.token_dto.access_token);
             this.setState({ loading: false, success: true });
         } catch (exception) {
             console.error(exception);

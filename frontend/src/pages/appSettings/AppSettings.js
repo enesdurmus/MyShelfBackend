@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import "./AppSettings.css";
 import cookies from 'js-cookie';
-import Navbar from '../../components/navbar/Navbar';
+import TopBar from '../../components/topBar/TopBar';
 
 class AppSettings extends Component {
     constructor(props) {
@@ -122,7 +122,7 @@ class AppSettings extends Component {
 
         return (
             <div className="container">
-                <Navbar></Navbar>
+                <TopBar></TopBar>
                 <div className="content">
                     <h1>Application Settings</h1>
                     <button className='addButton' onClick={() => this.handleAddSettingsClick()} style={{ cursor: 'pointer' }}>Add App Settings</button>
