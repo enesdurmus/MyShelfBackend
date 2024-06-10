@@ -20,14 +20,14 @@ public class AuthController {
 
     private final AuthService authService;
 
-    @PostMapping("/sign_up")
+    @PostMapping("/signup")
     public ResponseEntity<GenericResponse<SignInDTO>> signUp(@Validated @RequestBody SignUpRequest signUpRequest,
                                                              @RequestHeader(value = "X-Client-Type", required = false) ClientType clientType) {
         SignInDTO signInDTO = authService.signUp(signUpRequest, clientType);
         return ResponseEntity.ok(GenericResponse.success(signInDTO));
     }
 
-    @PostMapping("/sign_in")
+    @PostMapping("/signin")
     public ResponseEntity<GenericResponse<SignInDTO>> signIn(@Validated @RequestBody SignInRequest signInRequest) {
         SignInDTO signInDTO = authService.signIn(signInRequest);
         return ResponseEntity.ok(GenericResponse.success(signInDTO));
