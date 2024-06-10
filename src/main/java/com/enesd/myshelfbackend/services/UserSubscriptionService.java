@@ -1,5 +1,6 @@
 package com.enesd.myshelfbackend.services;
 
+import com.enesd.myshelfbackend.consts.CacheNames;
 import com.enesd.myshelfbackend.dto.UserSubscriptionDTO;
 import com.enesd.myshelfbackend.model.entities.User;
 import com.enesd.myshelfbackend.model.entities.UserSubscription;
@@ -19,7 +20,7 @@ public class UserSubscriptionService {
     private final UserSubscriptionRepository userSubscriptionRepository;
     private final CustomModelMapper modelMapper;
 
-    @Cacheable(value = "user_subscriptions", key = "#user.id")
+    @Cacheable(value = CacheNames.USER_SUBSCRIPTIONS, key = "#user.id")
     public List<UserSubscriptionDTO> getCachedUserSubscriptions(User user) {
         List<UserSubscription> userSubscriptions = userSubscriptionRepository.findByUser(user).orElseThrow(EntityNotFoundException::new);
         return modelMapper.mapAll(userSubscriptions, UserSubscriptionDTO.class);
