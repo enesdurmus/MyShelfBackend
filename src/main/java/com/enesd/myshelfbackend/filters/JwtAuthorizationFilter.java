@@ -34,7 +34,8 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         final String authHeader = request.getHeader("Authorization");
 
         if (!StringUtils.hasText(authHeader) || !authHeader.startsWith("Bearer")) {
-            throw new UnauthorizedException("Unauthorized");
+            filterChain.doFilter(request, response);
+            return;
         }
 
         final String jwt = authHeader.substring(7);
