@@ -1,0 +1,45 @@
+.table-striped tbody tr:nth-child(odd) {
+    background-color: #f2f2f2;
+}
+
+.table-striped tbody tr:nth-child(even) {
+    background-color: #dadada;
+}
+
+.table-striped {
+    border-collapse: collapse;
+    background-color: azure;
+}
+
+h1{
+    padding: 10px;
+    color: #ffffff;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.content {
+
+}
+
+button{
+    background-color: #8341d3;
+    color: #dadada;
+    border: 2px solid rgb(133, 122, 255);
+    padding: 5px;
+}
+
+.addButton{
+    margin-bottom: 20px;
+    display: flex;
+}
+
+.table-striped th,
+.table-striped td {
+    padding: 10px;    
+    border: 2px solid black;
+}
