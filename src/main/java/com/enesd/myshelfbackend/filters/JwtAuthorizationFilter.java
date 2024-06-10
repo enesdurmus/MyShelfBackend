@@ -1,6 +1,7 @@
 package com.enesd.myshelfbackend.filters;
 
 
+import com.enesd.myshelfbackend.model.exceptions.UnauthorizedException;
 import com.enesd.myshelfbackend.security.services.JwtService;
 import com.enesd.myshelfbackend.utils.AuthPathHelper;
 import com.enesd.myshelfbackend.utils.SwaggerPathHelper;
@@ -28,15 +29,12 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
     private static final Logger logger = LoggerFactory.getLogger(JwtAuthorizationFilter.class);
     private final JwtService jwtService;
 
-
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-            throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) {
         final String authHeader = request.getHeader("Authorization");
 
         if (!StringUtils.hasText(authHeader) || !authHeader.startsWith("Bearer")) {
-            filterChain.doFilter(request, response);
-            return;
+            throw new UnauthorizedException("Unauthorized");
         }
 
         final String jwt = authHeader.substring(7);
@@ -48,7 +46,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
             }
         }
 
-        filterChain.doFilter(request, response);
+        throw new UnauthorizedException("Unauthorized");
     }
 
     @Override
