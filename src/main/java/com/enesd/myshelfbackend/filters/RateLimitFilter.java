@@ -2,6 +2,8 @@ package com.enesd.myshelfbackend.filters;
 
 import com.enesd.myshelfbackend.model.entities.User;
 import com.enesd.myshelfbackend.services.RateLimitService;
+import com.enesd.myshelfbackend.utils.AuthPathHelper;
+import com.enesd.myshelfbackend.utils.SwaggerPathHelper;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,7 +21,6 @@ import java.util.UUID;
 @Component
 @AllArgsConstructor
 public class RateLimitFilter extends OncePerRequestFilter {
-    private static final RequestMatcher authMatcher = new AntPathRequestMatcher("/api/*/auth/**");
     private final RateLimitService rateLimitService;
 
     @Override
@@ -31,6 +32,6 @@ public class RateLimitFilter extends OncePerRequestFilter {
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
-        return authMatcher.matches(request);
+        return SwaggerPathHelper.isSwaggerPath(request) || AuthPathHelper.isAuthPath(request);
     }
 }

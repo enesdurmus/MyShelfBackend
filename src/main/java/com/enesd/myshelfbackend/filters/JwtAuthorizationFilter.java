@@ -2,6 +2,8 @@ package com.enesd.myshelfbackend.filters;
 
 
 import com.enesd.myshelfbackend.security.services.JwtService;
+import com.enesd.myshelfbackend.utils.AuthPathHelper;
+import com.enesd.myshelfbackend.utils.SwaggerPathHelper;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,7 +24,6 @@ import java.io.IOException;
 @Component
 @AllArgsConstructor
 public class JwtAuthorizationFilter extends OncePerRequestFilter {
-    private static final RequestMatcher authMatcher = new AntPathRequestMatcher("/api/*/auth/**");
 
     private static final Logger logger = LoggerFactory.getLogger(JwtAuthorizationFilter.class);
     private final JwtService jwtService;
@@ -52,6 +53,6 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
-        return authMatcher.matches(request);
+        return SwaggerPathHelper.isSwaggerPath(request) || AuthPathHelper.isAuthPath(request);
     }
 }
