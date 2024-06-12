@@ -1,12 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './TopBar.css';
+import { useAuth } from '../../../hooks/useAuth';
 
 const TopBar = () => {
-    const pages = [
+    const { user } = useAuth();
+
+    const adminPages = [
         { name: 'Home Page', path: '/home' },
         { name: 'User Management', path: '/user-management' },
         { name: 'App Settings', path: '/app-settings' },
+    ];
+
+    const apiPages = [
+        { name: 'Home Page', path: '/home' },
         { name: 'Access Token Management', path: '/access-token-management' },
     ];
 
@@ -19,11 +26,17 @@ const TopBar = () => {
                 <span>My Shelf</span>
             </div>
             <div className="page">
-                {pages.map((page, index) => (
-                    <Link key={index} to={page.path}>
-                        {page.name}
-                    </Link>
-                ))}
+                {user.roles.includes("ADMIN") ?
+                    adminPages.map((page, index) => (
+                        <Link key={index} to={page.path}>
+                            {page.name}
+                        </Link>
+                    )) :
+                    apiPages.map((page, index) => (
+                        <Link key={index} to={page.path}>
+                            {page.name}
+                        </Link>
+                    ))}
             </div>
         </div>
     );

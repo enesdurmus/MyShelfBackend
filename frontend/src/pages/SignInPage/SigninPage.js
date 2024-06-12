@@ -9,12 +9,11 @@ const SignInPage = () => {
 
     useEffect(() => {
         if (user) {
-            navigate('/admin-dashboard');
-            // if (user.roles.includes('admin')) {
-            //     navigate('/admin-dashboard');
-            // } else {
-            //     navigate('/api-portal');
-            // }
+            if (user.roles.includes('ADMIN')) {
+                navigate('/admin-dashboard');
+            } else {
+                navigate('/api-portal');
+            }
         }
     }, [user, navigate]);
 
