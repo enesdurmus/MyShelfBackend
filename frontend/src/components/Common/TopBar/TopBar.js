@@ -8,16 +8,17 @@ const TopBar = (props) => {
     const pages = [
         { name: 'Home Page', path: '/home' },
         { name: 'User Management', path: '/user-management' },
-        { name: 'App Settings', path: '/app_settings' },
+        { name: 'App Settings', path: '/app-settings' },
+        { name: 'Access Token Management', path: '/access-token-management' },
     ];
 
     return (
         <div className="top-bar">
             <div className="title">
                 <Link to="/">
-                    <img src="app-icon.png" alt="App Icon" />
+                    <img src="/app-icon.png" alt="App Icon" />
                 </Link>
-                <span>App İsmi</span>
+                <span>My Shelf</span>
             </div>
             <div className="page">
                 {pages.map((page, index) => (

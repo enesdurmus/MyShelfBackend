@@ -5,6 +5,11 @@ table {
   margin-bottom: 20px;
 }
 
+th{
+ background-color: #363636;
+ color: #ffffff;
+}
+
 th, td {
   padding: 8px;
   text-align: left;

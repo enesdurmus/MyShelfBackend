@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import api from '../../configs/api';
+import api from '../../../services/api';
 import './UserManagement.css';
-import TopBar from '../../components/topBar/TopBar';
+import TopBar from '../../../components/topBar/TopBar';
 
 const UserManagement = () => {
     const [users, setUsers] = useState([]);

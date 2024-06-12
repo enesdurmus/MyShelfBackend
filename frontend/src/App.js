@@ -1,24 +1,24 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Routes, Switch } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthContext';
+import SignInPage from './pages/SignInPage/SigninPage';
+import SignUpPage from './pages/SignUpPage/SignupPage';
+import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
 import './App.css';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Home from "./pages/home/Home";
-import UserManagement from "./pages/userManagement/UserManagement";
-import AppSettings from './pages/appSettings/AppSettings';
-import Signin from './pages/signin/Signin';
 
-class App extends Component {
-  render() {
-    return (
+const App = () => {
+  return (
+    <AuthProvider>
       <Router>
-        <Switch>
-          <Route path='/' exact={true} component={Signin} />
-          <Route path='/home' exact={true} component={Home} />
-          <Route path='/app-settings' exact={true} component={AppSettings} />
-          <Route path="/user-management" component={UserManagement} />
-        </Switch>
+        <Routes>
+          <Route path="/" element={<SignInPage />} />
+          <Route path="/signin" element={<SignInPage />} />
+          <Route path="/signup" element={<SignUpPage />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
       </Router>
-    )
-  }
-}
+    </AuthProvider>
+  );
+};
 
 export default App;

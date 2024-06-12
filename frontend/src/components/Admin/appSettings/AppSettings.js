@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import "./AppSettings.css";
 import cookies from 'js-cookie';
-import TopBar from '../../components/topBar/TopBar';
+import TopBar from '../../../components/topBar/TopBar';
 
 class AppSettings extends Component {
     constructor(props) {
