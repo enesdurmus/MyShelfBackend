@@ -1,10 +1,8 @@
 import React from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './TopBar.css';
 
-const TopBar = (props) => {
-    const { location } = props;
-
+const TopBar = () => {
     const pages = [
         { name: 'Home Page', path: '/home' },
         { name: 'User Management', path: '/user-management' },
@@ -22,7 +20,7 @@ const TopBar = (props) => {
             </div>
             <div className="page">
                 {pages.map((page, index) => (
-                    <Link key={index} to={page.path} className={location.pathname === page.path ? 'active' : ''}>
+                    <Link key={index} to={page.path}>
                         {page.name}
                     </Link>
                 ))}
@@ -31,4 +29,4 @@ const TopBar = (props) => {
     );
 };
 
-export default withRouter(TopBar);
+export default TopBar;

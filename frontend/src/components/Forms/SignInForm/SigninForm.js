@@ -1,37 +1,47 @@
 import React, { useState } from 'react';
+import './SigninForm.css';
 
-const LoginForm = ({ login }) => {
+const SigninForm = ({ signin }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        login(email, password);
+        signin(email, password);
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <label>Email:</label>
+        <div className="login">
+            <h4>Signin</h4>
+            <form>
+                <div className="text_area">
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        defaultValue="username"
+                        className="text_input"
+                    />
+                </div>
+                <div className="text_area">
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        defaultValue="password"
+                        className="text_input"
+                    />
+                </div>
                 <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
+                    type="submit"
+                    value="SIGNIN"
+                    className="btn"
+                    onClick={handleSubmit}
                 />
-            </div>
-            <div>
-                <label>Password:</label>
-                <input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                />
-            </div>
-            <button type="submit">Sign In</button>
-        </form>
+            </form>
+            <a className="link" href="/signup">Sign Up</a>
+        </div>
     );
 };
 
-export default LoginForm;
+export default SigninForm;
