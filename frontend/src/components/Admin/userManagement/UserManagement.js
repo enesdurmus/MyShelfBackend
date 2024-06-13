@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './UserManagement.css';
 import { useApi } from "../../../hooks/useApi";
+import TopBar from '../../Common/TopBar/TopBar';
 
 const UserManagement = () => {
     const [users, setUsers] = useState([]);
@@ -56,6 +57,7 @@ const UserManagement = () => {
 
     return (
         <div>
+            <TopBar></TopBar>
             <div>
                 <h1>User Management</h1>
                 <table>

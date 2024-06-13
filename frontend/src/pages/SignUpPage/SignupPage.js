@@ -4,12 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import SignupForm from '../../components/Forms/SignupForm/SignupForm';
 
 const SignUpPage = () => {
-    const { user, register } = useAuth();
+    const { user, signup } = useAuth();
     const navigate = useNavigate();
 
     useEffect(() => {
         if (user) {
-            if (user.roles.includes('admin')) {
+            if (user.roles.includes('ADMIN')) {
                 navigate('/admin-dashboard');
             } else {
                 navigate('/api-portal');
@@ -19,8 +19,7 @@ const SignUpPage = () => {
 
     return (
         <div>
-            <h1>Sign Up</h1>
-            <SignupForm signup={register} />
+            <SignupForm signup={signup} />
         </div>
     );
 };

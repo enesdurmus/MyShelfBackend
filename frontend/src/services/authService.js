@@ -19,8 +19,23 @@ export const authService = {
             throw new Error(exception.message);
         }
     },
-    signup: async (email, password) => {
-        return { email };
+    signup: async (username, email, password) => {
+        try {
+            console.log(username, email, password);
+            const response = await axios({
+                method: 'post',
+                url: 'http://127.0.0.1:5050/api/v1/auth/signup',
+                data: {
+                    "username": username,
+                    "password": password
+                }
+            });
+            response.data.data.user.roles = parseToken(response.data.data.token_dto.access_token).authorities;
+            cookies.set("access_token", response.data.data.token_dto.access_token);
+            return response.data.data.user;
+        } catch (exception) {
+            throw new Error(exception.message);
+        }
     },
     logout: () => {
     }

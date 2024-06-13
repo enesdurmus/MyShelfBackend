@@ -1,0 +1,28 @@
+.admin-dashboard {
+    display: flex;
+  }
+  
+  .sidebar {
+    width: 200px;
+    border-right: 1px solid #ddd;
+    padding: 10px;
+  }
+  
+  .sidebar button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: none;
+    background-color: #f0f0f0;
+    cursor: pointer;
+  }
+  
+  .sidebar button:hover {
+    background-color: #ddd;
+  }
+  
+  .content {
+    flex: 1;
+    padding: 20px;
+  }
