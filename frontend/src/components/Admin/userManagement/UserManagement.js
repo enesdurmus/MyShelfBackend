@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import api from '../../../services/api';
 import './UserManagement.css';
-import TopBar from '../../../components/topBar/TopBar';
+import { useApi } from "../../../hooks/useApi";
 
 const UserManagement = () => {
     const [users, setUsers] = useState([]);
@@ -9,6 +8,7 @@ const UserManagement = () => {
     const [totalPages, setTotalPages] = useState(10);
     const [pageSize, setPageSize] = useState(10);
     const [visiblePages, setVisiblePages] = useState([]);
+    const { fetchApiData } = useApi();
 
     useEffect(() => {
         fetchUsers(page);
@@ -24,7 +24,7 @@ const UserManagement = () => {
 
     const fetchUsers = async (page) => {
         try {
-            const response = await api.get(`/api/v1/users?pageNo=${page - 1}&pageSize=${pageSize}`);
+            const response = await fetchApiData(`/api/v1/users?pageNo=${page - 1}&pageSize=${pageSize}`);
             setUsers(response.data.data);
             setTotalPages(100);
         } catch (error) {
@@ -56,7 +56,6 @@ const UserManagement = () => {
 
     return (
         <div>
-            <TopBar></TopBar>
             <div>
                 <h1>User Management</h1>
                 <table>
