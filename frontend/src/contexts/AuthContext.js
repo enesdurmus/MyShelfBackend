@@ -9,11 +9,13 @@ export const AuthProvider = ({ children }) => {
     const signin = async (email, password) => {
         const user = await authService.signin(email, password);
         setUser(user);
+        console.log("Signin Success!");
     };
 
     const signup = async (username, email, password) => {
         const user = await authService.signup(username, email, password);
         setUser(user);
+        console.log("Signup Success!");
     };
 
     const logout = () => {

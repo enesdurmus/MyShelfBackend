@@ -9,6 +9,7 @@ import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
 import AdminPage from './pages/AdminPage/AdminPage';
 import ApiPortalPage from './pages/ApiPortalPage/ApiPortalPage';
 import UserManagement from './components/Admin/UserManagement/UserManagement';
+import AccessTokenManagement from './components/Api/AccessTokenManagement/AccessTokenManagement';
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
             <Route path="/signin" element={<SignInPage />} />
             <Route path="/signup" element={<SignUpPage />} />
             <Route path="/admin-dashboard" element={<AdminPage />} />
+            <Route path="//access-token-management" element={<AccessTokenManagement />} />
             <Route path="/user-management" element={<UserManagement />} />
             <Route path="/api-portal" element={<ApiPortalPage />} />
             <Route path="*" element={<NotFoundPage />} />
