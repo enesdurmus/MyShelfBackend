@@ -34,3 +34,9 @@
 .page a.active {
     font-weight: bold;
 }
+
+nav{
+    background-color: #ccc;
+    color: #ffffff;
+    align-content: end;
+}

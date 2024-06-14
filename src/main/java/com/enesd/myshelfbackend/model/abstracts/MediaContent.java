@@ -15,11 +15,8 @@ public abstract class MediaContent extends Content {
     @Column(name = "title")
     private String title;
 
-    @Column(name = "vote_average")
-    private Float voteAverage;
-
-    @Column(name = "vote_count")
-    private Integer voteCount;
+    @Column(name = "average_rating")
+    private Float averageRating;
 
     @Column(name = "release_date")
     private Instant releaseDate;

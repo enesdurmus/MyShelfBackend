@@ -4,21 +4,32 @@ table {
     border-collapse: collapse;
     margin-bottom: 20px;
   }
-  
-  th{
-   background-color: #363636;
-   color: #ffffff;
+
+  h1{
+    color: #ffffff;
+  }
+
+  table{
+    width: 80%;
+    border-collapse: collapse;
   }
   
   th, td {
     padding: 8px;
     text-align: left;
     border-bottom: 1px solid #767676;
-  }
+  }  
   
-  th:not(:last-child),
-  td:not(:last-child) {
-    border-right: 1px solid #505050;
+  th{
+    background-color: #000000;
+    color: #ffffff;
+  }
+
+  td{
+    background-color: #353535;
+    color: #ffffff;
+    max-width: 200px;
+    word-wrap: break-word;
   }
   
   tr:nth-child(even) {
@@ -31,48 +42,4 @@ table {
   
   tr:hover {
     background-color: #bfbfbf;
-  }
-  
-  .pagination-controls {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-    position: fixed;
-    bottom: 20px;
-    left: 0;
-    right: 0;
-  }
-  
-  .page-size-selector {
-    margin-top: 20px;
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-  }
-  
-  .page-size-selector label {
-    margin-right: 10px;
-  }
-  
-  .page-size-selector select {
-    padding: 5px;
-  }
-  
-  .pagination {
-    display: flex;
-    justify-content: flex-start;
-    gap: 1px;
-  }
-  
-  .pagination button {
-    margin: 0 5px;
-    padding: 10px 15px; 
-    font-size: 16px; 
-  }
-  
-  .pagination .active {
-    font-weight: bold;
-    background-color: #007bff;
-    color: #fff; 
   }

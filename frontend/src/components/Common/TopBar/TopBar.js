@@ -1,10 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './TopBar.css';
 import { useAuth } from '../../../hooks/useAuth';
+import {
+    MDBContainer,
+    MDBNavbar,
+    MDBNavbarBrand,
+    MDBNavbarNav,
+    MDBNavbarItem,
+    MDBNavbarLink
+} from 'mdb-react-ui-kit';
 
 const TopBar = () => {
     const { user } = useAuth();
+    const [activePage, setactivePage] = useState('home');
 
     const adminPages = [
         { name: 'Home Page', path: '/home' },
@@ -18,27 +27,38 @@ const TopBar = () => {
     ];
 
     return (
-        <div className="top-bar">
-            <div className="title">
-                <Link to="/">
-                    <img src="/app-icon.png" alt="App Icon" />
-                </Link>
-                <span>My Shelf</span>
-            </div>
-            <div className="page">
-                {user.roles.includes("ADMIN") ?
-                    adminPages.map((page, index) => (
-                        <Link key={index} to={page.path}>
-                            {page.name}
-                        </Link>
-                    )) :
-                    apiPages.map((page, index) => (
-                        <Link key={index} to={page.path}>
-                            {page.name}
-                        </Link>
-                    ))}
-            </div>
-        </div>
+        <MDBNavbar expand='lg' className='p-3 mb-2 bg-secondary bg-gradient'>
+            <MDBContainer fluid>
+                <MDBNavbarBrand className='text-white' href='#'>
+                    <img
+                        src='https://mdbootstrap.com/img/logo/mdb-transaprent-noshadows.webp'
+                        height='30'
+                        alt=''
+                        loading='lazy'
+                    />
+                    My Shelf Api
+                </MDBNavbarBrand>
+                <MDBNavbarNav>
+                    {/* <MDBNavbarItem>
+                        <MDBNavbarLink active aria-current='page' href='#'>
+                            Home
+                        </MDBNavbarLink>
+                    </MDBNavbarItem> */}
+                    {user && user.roles.includes("ADMIN") ?
+                        adminPages.map((page, index) => (
+                            <MDBNavbarItem key={index}>
+                                <MDBNavbarLink className='text-white' href={page.path}>{page.name} bgColor='light'</MDBNavbarLink>
+                            </MDBNavbarItem>
+                        )) :
+                        apiPages.map((page, index) => (
+                            <MDBNavbarItem key={index}>
+                                <MDBNavbarLink className='text-white' href={page.path}>{page.name}</MDBNavbarLink>
+                            </MDBNavbarItem>
+                        ))
+                    }
+                </MDBNavbarNav>
+            </MDBContainer>
+        </MDBNavbar>
     );
 };
 

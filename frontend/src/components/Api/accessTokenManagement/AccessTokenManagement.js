@@ -1,40 +1,75 @@
 import React, { useState, useEffect } from 'react';
-import api from '../../../services/api';
 import './AccessTokenManagement.css';
 import TopBar from '../../Common/TopBar/TopBar';
+import { useApi } from '../../../hooks/useApi';
+import { MDBBadge, MDBBtn, MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
 
 const AccessTokenManagement = () => {
-    const [users, setUsers] = useState([]);
+    const [accessToken, setAccessToken] = useState({});
+    const { fetchApiData, postApiData } = useApi();
 
-    const handleEdit = (userId) => {
-        console.log(`Edit user with ID: ${userId}`);
+    useEffect(() => {
+        fetchAccessToken();
+    }, []);
+
+    const fetchAccessToken = async () => {
+        try {
+            const results = await fetchApiData('api/v1/access_tokens');
+            setAccessToken(results.data.data);
+        } catch (exception) {
+            console.log(exception);
+        }
+    }
+
+    const handleCreate = async () => {
+        try {
+            const results = await postApiData('api/v1/access_tokens');
+            setAccessToken(results.data.data);
+        } catch (exception) {
+            console.log(exception);
+        }
     };
 
-    const handleDelete = (userId) => {
-        if (window.confirm('Are you sure you want to delete this user?')) {
-            console.log(`Delete user with ID: ${userId}`);
-        }
+    const handleDelete = () => {
+
     };
 
     return (
         <div>
             <TopBar></TopBar>
-            <div>
-                <h1>Access Token Management</h1>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Token</th>
-                            <th>Name</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <td>aa</td>
-                        <td>aa</td>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+            <MDBTable className="w-100 p-3" align='middle'>
+                <MDBTableHead>
+                    <tr>
+                        <th className='bg-secondary' scope='col'>Token</th>
+                        <th className='bg-secondary' scope='col'>Created At</th>
+                        <th className='bg-secondary' scope='col'>Updated At</th>
+                        <th className='bg-secondary' scope='col'>Actions</th>
+                    </tr>
+                </MDBTableHead>
+                <MDBTableBody>
+                    <tr>
+                        <td>
+                            <p className='text-muted mb-0'>{accessToken && accessToken.token}</p>
+                        </td>
+                        <td>
+                            <p className='text-muted mb-0'>{accessToken && accessToken.created_at}</p>
+                        </td>
+                        <td>
+                            <p className='text-muted mb-0'>{accessToken && accessToken.updated_at}</p>
+                        </td>
+                        <td>
+                            <MDBBtn color='link' rounded size='sm' onClick={handleDelete}>
+                                Delete
+                            </MDBBtn>
+                            {!accessToken && (
+                                <MDBBtn color='link' rounded size='sm' onClick={handleCreate}>
+                                    Create
+                                </MDBBtn>
+                            )}
+                        </td>
+                    </tr>
+                </MDBTableBody>
+            </MDBTable></div>
     );
 };
 

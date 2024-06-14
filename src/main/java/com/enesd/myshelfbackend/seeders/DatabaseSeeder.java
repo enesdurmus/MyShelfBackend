@@ -73,9 +73,8 @@ public class DatabaseSeeder {
                 mediaContentEntity.setAdult(faker.bool().bool());
                 mediaContentEntity.setReleaseDate(faker.date().birthday().toInstant());
                 mediaContentEntity.setRevenue((long) faker.number().numberBetween(100, 100000000));
-                mediaContentEntity.setVoteAverage((float) faker.number().randomDouble(10, 10, 1000));
+                mediaContentEntity.setAverageRating((float) faker.number().randomDouble(10, 10, 1000));
                 mediaContentEntity.setRuntime(faker.number().randomDigit());
-                mediaContentEntity.setVoteCount(faker.number().randomDigit());
                 return mediaContentEntity;
             }
         }
