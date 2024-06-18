@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import './TopBar.css';
-import { useAuth } from '../../hooks/useAuth';
+import './Header.css';
+import { useAuth } from '../../../hooks/useAuth';
 import {
     MDBContainer,
     MDBNavbar,
@@ -11,19 +11,14 @@ import {
     MDBNavbarLink
 } from 'mdb-react-ui-kit';
 
-const TopBar = () => {
+const Header = () => {
     const { user } = useAuth();
     const [activePage, setactivePage] = useState('home');
 
-    const adminPages = [
+    const pages = [
         { name: 'Home Page', path: '/home' },
         { name: 'User Management', path: '/user-management' },
         { name: 'App Settings', path: '/app-settings' },
-    ];
-
-    const apiPages = [
-        { name: 'Home Page', path: '/home' },
-        { name: 'Access Token Management', path: '/access-token-management' },
         { name: 'Subscriptions', path: '/subscriptions' },
     ];
 
@@ -45,17 +40,11 @@ const TopBar = () => {
                             Home
                         </MDBNavbarLink>
                     </MDBNavbarItem> */}
-                    {user && user.roles.includes("ADMIN") ?
-                        adminPages.map((page, index) => (
-                            <MDBNavbarItem key={index}>
-                                <MDBNavbarLink className='text-white' href={page.path}>{page.name} bgColor='light'</MDBNavbarLink>
-                            </MDBNavbarItem>
-                        )) :
-                        apiPages.map((page, index) => (
-                            <MDBNavbarItem key={index}>
-                                <MDBNavbarLink className='text-white' href={page.path}>{page.name}</MDBNavbarLink>
-                            </MDBNavbarItem>
-                        ))
+                    {pages.map((page, index) => (
+                        <MDBNavbarItem key={index}>
+                            <MDBNavbarLink className='text-white' href={page.path}>{page.name}</MDBNavbarLink>
+                        </MDBNavbarItem>
+                    ))
                     }
                 </MDBNavbarNav>
             </MDBContainer>
@@ -63,4 +52,4 @@ const TopBar = () => {
     );
 };
 
-export default TopBar;
+export default Header;

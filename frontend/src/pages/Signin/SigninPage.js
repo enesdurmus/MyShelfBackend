@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import './SigninForm.css';
+import React, { useState, useEffect } from 'react';
+import { useAuth } from '../../hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
 import {
     MDBBtn,
     MDBContainer,
@@ -12,9 +13,17 @@ import {
     MDBIcon
 } from 'mdb-react-ui-kit';
 
-const SigninForm = ({ signin }) => {
+const SigninPage = () => {
+    const { user, signin } = useAuth();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (user) {
+            navigate('/dashboard');
+        }
+    }, [user, navigate]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -80,4 +89,4 @@ const SigninForm = ({ signin }) => {
     );
 };
 
-export default SigninForm;
+export default SigninPage;

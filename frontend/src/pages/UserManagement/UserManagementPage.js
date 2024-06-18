@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import './UserManagement.css';
-import { useApi } from "../../../hooks/useApi";
-import TopBar from '../../../components/TopBar/TopBar';
+import './UserManagementPage.css';
+import { useApi } from "../../hooks/useApi";
+import Layout from '../../components/layout/Layout/Layout';
 
-const UserManagement = () => {
+const UserManagementPage = () => {
     const [users, setUsers] = useState([]);
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(10);
@@ -57,7 +57,7 @@ const UserManagement = () => {
 
     return (
         <div>
-            <TopBar></TopBar>
+            <Layout />
             <div>
                 <h1>User Management</h1>
                 <table>
@@ -110,4 +110,4 @@ const UserManagement = () => {
     );
 };
 
-export default UserManagement;
+export default UserManagementPage;

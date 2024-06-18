@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom';
 import "./AppSettings.css";
 import cookies from 'js-cookie';
 import TopBar from '../../../components/topBar/TopBar';
+import Layout from '../../components/layout/Layout/Layout';
 
 class AppSettings extends Component {
     constructor(props) {
@@ -122,7 +123,8 @@ class AppSettings extends Component {
 
         return (
             <div className="container">
-                <TopBar></TopBar>
+                <Layout />
+
                 <div className="content">
                     <h1>Application Settings</h1>
                     <button className='addButton' onClick={() => this.handleAddSettingsClick()} style={{ cursor: 'pointer' }}>Add App Settings</button>

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './SubscriptionPage.css';
-import TopBar from '../../../components/TopBar/TopBar';
-import { useApi } from '../../../hooks/useApi';
+import { useApi } from '../../hooks/useApi'
 import { MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBBtn } from 'mdb-react-ui-kit';
+import Layout from '../../components/layout/Layout/Layout';
 
 const SubscriptionPage = () => {
     const [userSubscription, setUserSubscription] = useState(null);
@@ -39,7 +39,7 @@ const SubscriptionPage = () => {
 
     return (
         <div>
-            <TopBar />
+            <Layout />
             <div className="d-grid gap-3">
                 <MDBContainer breakpoint="lg" className="">
                     <h2 className="text-center mb-4">Choose Your Subscription Plan</h2>
