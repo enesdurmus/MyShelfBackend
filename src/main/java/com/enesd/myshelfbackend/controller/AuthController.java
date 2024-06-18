@@ -2,7 +2,6 @@ package com.enesd.myshelfbackend.controller;
 
 import com.enesd.myshelfbackend.dto.TokenDTO;
 import com.enesd.myshelfbackend.dto.SignInDTO;
-import com.enesd.myshelfbackend.enums.ClientType;
 import com.enesd.myshelfbackend.model.request.RefreshTokenRequest;
 import com.enesd.myshelfbackend.model.request.SignInRequest;
 import com.enesd.myshelfbackend.model.request.SignUpRequest;
@@ -21,9 +20,8 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/signup")
-    public ResponseEntity<GenericResponse<SignInDTO>> signUp(@Validated @RequestBody SignUpRequest signUpRequest,
-                                                             @RequestHeader(value = "X-Client-Type", required = false) ClientType clientType) {
-        SignInDTO signInDTO = authService.signUp(signUpRequest, clientType);
+    public ResponseEntity<GenericResponse<SignInDTO>> signUp(@Validated @RequestBody SignUpRequest signUpRequest) {
+        SignInDTO signInDTO = authService.signUp(signUpRequest);
         return ResponseEntity.ok(GenericResponse.success(signInDTO));
     }
 

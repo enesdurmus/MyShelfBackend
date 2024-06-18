@@ -26,10 +26,8 @@ public class RateLimitService {
     private static final int DEFAULT_MAX_REQUESTS_PER_WINDOW = 100;
     private static final int RATE_LIMIT_WINDOW_SECONDS = 60;
     private static final String RATE_LIMIT_EXPIRE_POSTFIX = "::expires";
-    private static final String DEVELOPER_USER_HASH_KEY_PREFIX = "devs_user::";
     private static final Logger logger = LoggerFactory.getLogger(RateLimitService.class);
     private final RedisTemplate<Object, Object> redisTemplate;
-    private final UserSubscriptionService userSubscriptionService;
 
     public void deleteExpiredRateLimits() {
         try {
@@ -61,41 +59,18 @@ public class RateLimitService {
 
     public void checkRateLimit(User user) {
         String hashKey = determineHashKey(user);
-        int maxRequestPerWindow = determineMaxRequestPerWindow(user);
-
-        long currentCount = redisTemplate.opsForHash().increment(CacheNames.RATE_LIMIT_HASH_KEY, hashKey, 1);
+        Long currentCount = redisTemplate.opsForHash().increment(CacheNames.RATE_LIMIT_HASH_KEY, hashKey, 1);
 
         if (currentCount == 1) {
             redisTemplate.opsForHash().put(CacheNames.RATE_LIMIT_HASH_KEY, hashKey + RATE_LIMIT_EXPIRE_POSTFIX, Instant.now().plus(Duration.ofSeconds(RATE_LIMIT_WINDOW_SECONDS)).toString());
         }
 
-        if (currentCount > maxRequestPerWindow) {
+        if (currentCount > DEFAULT_MAX_REQUESTS_PER_WINDOW) {
             throw new TooManyRequestException("Too many request");
         }
     }
 
-    private int determineMaxRequestPerWindow(User user) {
-        if (user.getRoles().contains(RoleType.DEVELOPER)) {
-            Optional<UserSubscriptionDTO> userSubscriptionDTO = userSubscriptionService.getCachedUserSubscriptions(user)
-                    .stream()
-                    .filter(us -> us
-                            .getSubscription()
-                            .getSubscriptionType() == SubscriptionType.RATE_LIMIT)
-                    .findFirst();
-
-            if (userSubscriptionDTO.isPresent()) {
-                return userSubscriptionDTO.get().getSubscription().getAmount();
-            }
-        }
-
-        return DEFAULT_MAX_REQUESTS_PER_WINDOW;
-    }
-
     private String determineHashKey(User user) {
-        if (user.getRoles().contains(RoleType.DEVELOPER_USER)) {
-            return DEVELOPER_USER_HASH_KEY_PREFIX + user.getId().toString();
-        }
-
         return user.getId().toString();
     }
 }
