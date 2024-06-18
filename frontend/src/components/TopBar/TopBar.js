@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './TopBar.css';
-import { useAuth } from '../../../hooks/useAuth';
+import { useAuth } from '../../hooks/useAuth';
 import {
     MDBContainer,
     MDBNavbar,
@@ -24,6 +24,7 @@ const TopBar = () => {
     const apiPages = [
         { name: 'Home Page', path: '/home' },
         { name: 'Access Token Management', path: '/access-token-management' },
+        { name: 'Subscriptions', path: '/subscriptions' },
     ];
 
     return (

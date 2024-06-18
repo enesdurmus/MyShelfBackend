@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
-import { useAuth } from '../../hooks/useAuth';
+import { useAuth } from '../../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
-import SigninForm from '../../components/Forms/SignInForm/SigninForm';
+import SignupForm from '../../../components/Forms/SignupForm/SignupForm';
 
-const SignInPage = () => {
-    const { user, signin } = useAuth();
+const SignUpPage = () => {
+    const { user, signup } = useAuth();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -19,9 +19,9 @@ const SignInPage = () => {
 
     return (
         <div>
-            <SigninForm signin={signin} />
+            <SignupForm signup={signup} />
         </div>
     );
 };
 
-export default SignInPage;
+export default SignUpPage;

@@ -3,13 +3,14 @@ import { BrowserRouter as Router, Route, Routes, Switch } from 'react-router-dom
 import { AuthProvider } from './contexts/AuthContext';
 import { ApiProvider } from './contexts/ApiContext';
 import './App.css';
-import SignInPage from './pages/SignInPage/SigninPage';
-import SignUpPage from './pages/SignUpPage/SignupPage';
-import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
-import AdminPage from './pages/AdminPage/AdminPage';
-import ApiPortalPage from './pages/ApiPortalPage/ApiPortalPage';
-import UserManagement from './components/Admin/UserManagement/UserManagement';
-import AccessTokenManagement from './components/Api/AccessTokenManagement/AccessTokenManagement';
+import SignInPage from './pages/Common/SignInPage/SigninPage';
+import SignUpPage from './pages/Common/SignUpPage/SignupPage';
+import NotFoundPage from './pages/Common/NotFoundPage/NotFoundPage';
+import AdminPage from './pages/Admin/AdminPage/AdminPage';
+import ApiPortalPage from './pages/Api/ApiPortalPage/ApiPortalPage';
+import UserManagement from './pages/Admin/UserManagement/UserManagement';
+import AccessTokenManagement from './pages/Api/AccessTokenManagement/AccessTokenManagement';
+import SubscriptionPage from './pages/Api/SubscriptionPage/SubscriptionPage';
 
 const App = () => {
   return (
@@ -21,7 +22,8 @@ const App = () => {
             <Route path="/signin" element={<SignInPage />} />
             <Route path="/signup" element={<SignUpPage />} />
             <Route path="/admin-dashboard" element={<AdminPage />} />
-            <Route path="//access-token-management" element={<AccessTokenManagement />} />
+            <Route path="/access-token-management" element={<AccessTokenManagement />} />
+            <Route path="/subscriptions" element={<SubscriptionPage />} />
             <Route path="/user-management" element={<UserManagement />} />
             <Route path="/api-portal" element={<ApiPortalPage />} />
             <Route path="*" element={<NotFoundPage />} />

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './AccessTokenManagement.css';
-import TopBar from '../../Common/TopBar/TopBar';
+import TopBar from '../../../components/TopBar/TopBar';
 import { useApi } from '../../../hooks/useApi';
 import { MDBBadge, MDBBtn, MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
 
