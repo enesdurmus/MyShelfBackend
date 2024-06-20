@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
-import { Box, Link, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
-import { NumericFormat } from 'react-number-format';
+import {
+    Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Button, Grid
+} from '@mui/material';
 import appSettingsService from 'services/appSettingsService';
+import Search from 'layout/MainLayout/Header/HeaderContent/Search';
+import AddIcon from '@mui/icons-material/Add';
 
 const headCells = [
     {
@@ -77,8 +79,22 @@ const AppSettings = () => {
         setAppSettings(response.data);
     }
 
+    const handleAddButtonClick = () => {
+        console.log("Handle add button click");
+    }
+
     return (
         <Box>
+            <Grid container spacing={2}>
+                <Grid item xs={10.5}>
+                    <Search />
+                </Grid>
+                <Grid item xs={1.5}>
+                    <Button variant="outlined" size="medium" color="primary" startIcon={<AddIcon />} sx={{ "& .MuiButton-startIcon": { margin: "0px" }, minWidth: 150 }} onClick={handleAddButtonClick}>
+                        Add
+                    </Button>
+                </Grid>
+            </Grid>
             <TableContainer
                 sx={{
                     width: '100%',
@@ -116,15 +132,14 @@ const AppSettings = () => {
                                     key={row.id}
                                     selected={isItemSelected}
                                 >
-                                    <TableCell component="th" id={labelId} scope="row" align="left">
-                                        <Link color="secondary" component={RouterLink} to="">
-                                            {row.id}
-                                        </Link>
-                                    </TableCell>
+                                    <TableCell component="th" id={labelId} scope="row" align="left">{row.id}</TableCell>
                                     <TableCell align="left">{row.setting_key}</TableCell>
                                     <TableCell align="left">{row.setting_value}</TableCell>
                                     <TableCell align="right">{row.created_at}</TableCell>
                                     <TableCell align="right">{row.updated_at}</TableCell>
+                                    <TableCell align="right">
+
+                                    </TableCell>
                                 </TableRow>
                             );
                         })}
