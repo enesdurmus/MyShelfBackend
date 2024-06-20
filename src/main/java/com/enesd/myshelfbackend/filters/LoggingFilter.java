@@ -22,6 +22,8 @@ public class LoggingFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         long startTime = System.currentTimeMillis();
+        String sessionId = request.getSession().getId();
+        String fwd = request.getRemoteAddr();
 
         filterChain.doFilter(request, response);
 
@@ -29,8 +31,8 @@ public class LoggingFilter extends OncePerRequestFilter {
         long executionTime = endTime - startTime;
 
         log.info("sessionId={} fwd={} status={} method={} path={} service={}ms",
-                request.getSession().getId(),
-                request.getRemoteAddr(),
+                sessionId,
+                fwd,
                 response.getStatus(),
                 request.getMethod(),
                 request.getRequestURI(),
