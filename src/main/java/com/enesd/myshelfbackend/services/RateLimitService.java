@@ -1,9 +1,6 @@
 package com.enesd.myshelfbackend.services;
 
 import com.enesd.myshelfbackend.consts.CacheNames;
-import com.enesd.myshelfbackend.dto.UserSubscriptionDTO;
-import com.enesd.myshelfbackend.enums.RoleType;
-import com.enesd.myshelfbackend.enums.SubscriptionType;
 import com.enesd.myshelfbackend.model.entities.User;
 import com.enesd.myshelfbackend.model.exceptions.TooManyRequestException;
 import lombok.AllArgsConstructor;
@@ -18,7 +15,6 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
