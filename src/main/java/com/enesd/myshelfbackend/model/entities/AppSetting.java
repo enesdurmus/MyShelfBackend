@@ -6,17 +6,16 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "api_settings")
-public class ApiSetting extends Auditable {
+@Table(name = "app_settings")
+public class AppSetting extends Auditable {
 
     @Id
-    @Column(name = "api_setting_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int apiSettingId;
+    private Integer id;
 
-    @Column(name = "setting_key")
+    @Column(name = "setting_key", unique = true, nullable = false)
     private String settingKey;
 
-    @Column(name = "setting_value")
+    @Column(name = "setting_value", columnDefinition = "TEXT", nullable = false)
     private String settingValue;
 }

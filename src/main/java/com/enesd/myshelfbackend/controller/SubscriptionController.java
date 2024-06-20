@@ -18,13 +18,13 @@ import java.util.List;
 public class SubscriptionController {
     private final SubscriptionService subscriptionService;
 
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     @GetMapping("/{subscriptionId}")
     public ResponseEntity<GenericResponse<SubscriptionDTO>> getSubscription(@PathVariable Long subscriptionId) {
         return ResponseEntity.ok(GenericResponse.success(subscriptionService.getSubscription(subscriptionId)));
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     @GetMapping
     public ResponseEntity<GenericResponse<List<SubscriptionDTO>>> getSubscriptions() {
         return ResponseEntity.ok(GenericResponse.success(subscriptionService.getSubscriptions()));

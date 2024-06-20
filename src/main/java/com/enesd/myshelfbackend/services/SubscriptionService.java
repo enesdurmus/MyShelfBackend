@@ -32,9 +32,9 @@ public class SubscriptionService {
     }
 
     public SubscriptionDTO getSubscription(Long subscriptionId) {
-        Optional<SubscriptionDTO> subscription = subscriptionService.getSubscriptions().stream().filter(subscriptionDTO -> subscriptionDTO.getId() == subscriptionId).findFirst();
+        Optional<SubscriptionDTO> subscription = subscriptionService.getSubscriptions().stream().filter(subscriptionDTO -> subscriptionDTO.getId().equals(subscriptionId)).findFirst();
         if (subscription.isPresent()) {
-            return modelMapper.map(subscription.get(), SubscriptionDTO.class);
+            return subscription.get();
         }
         throw new EntityNotFoundException("");
     }
