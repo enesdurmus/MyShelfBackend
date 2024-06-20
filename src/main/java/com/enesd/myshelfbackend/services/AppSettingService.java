@@ -31,7 +31,7 @@ public class AppSettingService {
         return modelMapper.mapAll(appSettings, AppSettingDTO.class);
     }
 
-    public AppSettingDTO getAppSetting(Integer id) {
+    public AppSettingDTO getAppSettingById(Integer id) {
         Optional<AppSettingDTO> appSetting = appSettingService.getAppSettings().stream().filter(appSettingDTO -> appSettingDTO.getId().equals(id)).findFirst();
         if (appSetting.isPresent()) {
             return appSetting.get();

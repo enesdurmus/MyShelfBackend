@@ -21,8 +21,8 @@ public class AppSettingController {
 
     @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     @GetMapping("/{id}")
-    public ResponseEntity<GenericResponse<AppSettingDTO>> getAppSetting(@PathVariable Integer id) {
-        return ResponseEntity.ok(GenericResponse.success(appSettingService.getAppSetting(id)));
+    public ResponseEntity<GenericResponse<AppSettingDTO>> getAppSettingById(@PathVariable Integer id) {
+        return ResponseEntity.ok(GenericResponse.success(appSettingService.getAppSettingById(id)));
     }
 
     @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
