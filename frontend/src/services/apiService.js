@@ -5,11 +5,17 @@ const instance = axios.create({
     baseURL: 'http://127.0.0.1:5050',
 });
 
+const getAccessTokenFromCookie = () => {
+    return cookies.get("access_token");
+};
+
 instance.interceptors.request.use(
     config => {
-        const accessToken = getAccessTokenFromCookie();
-        if (accessToken) {
-            config.headers.Authorization = `Bearer ${accessToken}`;
+        if (config.authHeader) {
+            const accessToken = getAccessTokenFromCookie();
+            if (accessToken) {
+                config.headers.Authorization = `Bearer ${accessToken}`;
+            }
         }
         return config;
     },
@@ -18,8 +24,11 @@ instance.interceptors.request.use(
     }
 );
 
-const getAccessTokenFromCookie = () => {
-    return cookies.get("access_token");
-};
+instance.interceptors.response.use(
+    response => response,
+    error => {
+        // return Promise.reject(error);
+    }
+);
 
 export default instance;
