@@ -1,6 +1,7 @@
 package com.enesd.myshelfbackend.services;
 
 import com.enesd.myshelfbackend.dto.UserDTO;
+import com.enesd.myshelfbackend.dto.UserPageDTO;
 import com.enesd.myshelfbackend.model.entities.User;
 import com.enesd.myshelfbackend.model.request.UpdateDisplayNameRequest;
 import com.enesd.myshelfbackend.repository.jpa.UserRepository;
@@ -26,9 +27,13 @@ public class UserService {
         userRepository.updateDisplayName(user.getId(), updateDisplayNameRequest.getDisplayName());
     }
 
-    public List<UserDTO> getUsersByPagination(int pageNo, int pageSize) {
+    public UserPageDTO getUsersByPagination(int pageNo, int pageSize) {
         PageRequest pageRequest = PageRequest.of(pageNo, pageSize, Sort.by("createdAt").descending());
         Page<User> pagingUser = userRepository.findAll(pageRequest);
-        return modelMapper.mapAll(pagingUser.getContent(), UserDTO.class);
+        UserPageDTO userPageDTO = new UserPageDTO(
+                modelMapper.mapAll(pagingUser.getContent(), UserDTO.class),
+                pagingUser.getTotalPages(),
+                pagingUser.getTotalElements());
+        return userPageDTO;
     }
 }

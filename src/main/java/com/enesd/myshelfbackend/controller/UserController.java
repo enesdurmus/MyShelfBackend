@@ -1,6 +1,7 @@
 package com.enesd.myshelfbackend.controller;
 
 import com.enesd.myshelfbackend.dto.UserDTO;
+import com.enesd.myshelfbackend.dto.UserPageDTO;
 import com.enesd.myshelfbackend.model.entities.User;
 import com.enesd.myshelfbackend.model.request.UpdateDisplayNameRequest;
 import com.enesd.myshelfbackend.model.response.GenericResponse;
@@ -32,8 +33,8 @@ public class UserController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping()
-    public ResponseEntity<GenericResponse<List<UserDTO>>> getUsersByPagination(@RequestParam(defaultValue = "0") Integer pageNo,
-                                                                               @RequestParam(defaultValue = "10") Integer pageSize) {
+    public ResponseEntity<GenericResponse<UserPageDTO>> getUsersByPagination(@RequestParam(defaultValue = "0") Integer pageNo,
+                                                                             @RequestParam(defaultValue = "10") Integer pageSize) {
 
         return ResponseEntity.ok(GenericResponse.success(userService.getUsersByPagination(pageNo, pageSize)));
     }
