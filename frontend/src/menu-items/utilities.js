@@ -60,6 +60,13 @@ const utilities = {
       type: 'item',
       url: '/app-settings',
       icon: icons.AntDesignOutlined
+    },
+    {
+      id: 'user-management',
+      title: 'User Management',
+      type: 'item',
+      url: '/user-management',
+      icon: icons.AntDesignOutlined
     }
   ]
 };
