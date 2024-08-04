@@ -13,7 +13,7 @@ public class CreateSubscriptionRequest {
     @NotEmpty
     private String name;
 
-    @NotEmpty
+    @NotNull
     private SubscriptionType subscriptionType;
 
     @NotNull

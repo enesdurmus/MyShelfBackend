@@ -27,6 +27,7 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
     response => response,
     error => {
+        console.log("saaaaa");
         // return Promise.reject(error);
     }
 );

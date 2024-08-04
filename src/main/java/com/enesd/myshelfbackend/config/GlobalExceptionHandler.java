@@ -36,7 +36,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<GenericResponse<Map<String, List<String>>>> handleValidationErrors(MethodArgumentNotValidException exception) {
         List<String> errors = exception.getBindingResult().getFieldErrors()
                 .stream().map(FieldError::getDefaultMessage).collect(Collectors.toList());
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(GenericResponse.error(getErrorsMap(errors)));
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(GenericResponse.error(getErrorsMap(errors)));
     }
 
     @ExceptionHandler(UnauthorizedException.class)

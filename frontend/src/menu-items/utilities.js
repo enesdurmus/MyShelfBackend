@@ -67,6 +67,13 @@ const utilities = {
       type: 'item',
       url: '/user-management',
       icon: icons.AntDesignOutlined
+    },
+    {
+      id: 'subscriptions',
+      title: 'Subscriptions',
+      type: 'item',
+      url: '/subscriptions',
+      icon: icons.AntDesignOutlined
     }
   ]
 };

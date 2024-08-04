@@ -4,7 +4,7 @@ import cookies from 'js-cookie';
 const authService = {
     signin: async (email, password) => {
         const response = await api.post('/api/v1/auth/signin', {
-            "username": email,
+            "email": email,
             "password": password
         });
         cookies.set("access_token", response.data.data.token_dto.access_token);
@@ -12,7 +12,7 @@ const authService = {
     },
     signup: async (email, password) => {
         const response = await api.post(`/api/v1/auth/signup`, {
-            "username": email,
+            "email": email,
             "password": password
         });
         cookies.set("access_token", response.data.data.token_dto.access_token);

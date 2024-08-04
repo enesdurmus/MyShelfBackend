@@ -17,6 +17,7 @@ const Color = Loadable(lazy(() => import('pages/components-overview/Color')));
 const Shadow = Loadable(lazy(() => import('pages/components-overview/Shadow')));
 const AntIcons = Loadable(lazy(() => import('pages/components-overview/AntIcons')));
 const AppSettings = Loadable(lazy(() => import('pages/appSettings/AppSettings')));
+const Subscriptions = Loadable(lazy(() => import('pages/subscriptions/Subscriptions')));
 
 // ==============================|| MAIN ROUTING ||============================== //
 
@@ -64,6 +65,10 @@ const MainRoutes = {
     {
       path: 'user-management',
       element: <UserManagement />
+    },
+    {
+      path: 'subscriptions',
+      element: <Subscriptions />
     }
   ]
 };
