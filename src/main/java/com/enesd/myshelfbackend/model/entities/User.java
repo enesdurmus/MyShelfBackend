@@ -22,8 +22,8 @@ public class User extends Auditable implements UserDetails {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(name = "user_name", nullable = false, unique = true)
-    private String username;
+    @Column(name = "email", nullable = false, unique = true)
+    private String email;
 
     @Column(name = "password", nullable = false)
     private String password;
@@ -50,6 +50,11 @@ public class User extends Auditable implements UserDetails {
             grantedAuthorities.add(new SimpleGrantedAuthority(roleType.toString()));
         }
         return grantedAuthorities;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
     }
 
     @PrePersist

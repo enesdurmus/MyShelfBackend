@@ -11,12 +11,12 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface UserRepository extends JpaRepository<User, UUID> {
-    Optional<User> findByUsername(String username);
+    Optional<User> findByEmail(String email);
 
     @Query("SELECT user FROM User user " +
             "JOIN FETCH user.roles " +
-            "WHERE user.username = (:username)")
-    Optional<User> findByUsernameWithRoles(@Param("username") String username);
+            "WHERE user.email = (:email)")
+    Optional<User> findByEmailWithRoles(@Param("email") String email);
 
     @Modifying
     @Query("UPDATE User u " +

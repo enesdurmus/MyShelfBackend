@@ -35,13 +35,10 @@ public class AuthService {
         Set<RoleType> defaultRoles = determineDefaultRoles();
 
         User user = new User();
-        user.setUsername(signUpRequest.getUsername());
+        user.setEmail(signUpRequest.getEmail());
         user.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
         user.setRoles(defaultRoles);
         userRepository.save(user);
-
-        Authentication authentication = new UsernamePasswordAuthenticationToken(user.getId(), user, user.getAuthorities());
-        SecurityContextHolder.getContext().setAuthentication(authentication);
 
         TokenDTO tokenDTO = tokenService.createJwtAccessAndRefreshToken(user.getId());
         UserDTO userDTO = modelMapper.map(user, UserDTO.class);
@@ -50,8 +47,7 @@ public class AuthService {
 
     public SignInDTO signIn(SignInRequest signInRequest) {
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(signInRequest.getUsername(), signInRequest.getPassword()));
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+                new UsernamePasswordAuthenticationToken(signInRequest.getEmail(), signInRequest.getPassword()));
         User user = (User) authentication.getPrincipal();
 
         TokenDTO tokenDTO = tokenService.createJwtAccessAndRefreshToken(user.getId());
