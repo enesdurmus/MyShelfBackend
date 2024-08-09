@@ -1,6 +1,5 @@
 package com.enesd.myshelfbackend.model.request;
 
-import com.enesd.myshelfbackend.enums.SubscriptionType;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -12,9 +11,6 @@ public class CreateSubscriptionRequest {
 
     @NotEmpty
     private String name;
-
-    @NotNull
-    private SubscriptionType subscriptionType;
 
     @NotNull
     private Float durationHours;

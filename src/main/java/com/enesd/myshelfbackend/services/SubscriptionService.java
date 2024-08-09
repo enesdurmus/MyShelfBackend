@@ -45,7 +45,6 @@ public class SubscriptionService {
         subscription.setName(createSubscriptionRequest.getName());
         subscription.setAmount(createSubscriptionRequest.getAmount());
         subscription.setPrice(createSubscriptionRequest.getPrice());
-        subscription.setSubscriptionType(createSubscriptionRequest.getSubscriptionType());
         subscription.setDurationHours(createSubscriptionRequest.getDurationHours());
         subscriptionRepository.save(subscription);
         return modelMapper.map(subscription, SubscriptionDTO.class);

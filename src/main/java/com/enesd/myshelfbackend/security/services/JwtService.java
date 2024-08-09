@@ -1,10 +1,7 @@
 package com.enesd.myshelfbackend.security.services;
 
 import com.enesd.myshelfbackend.enums.RoleType;
-import com.enesd.myshelfbackend.enums.SubscriptionType;
-import com.enesd.myshelfbackend.model.entities.Subscription;
 import com.enesd.myshelfbackend.model.entities.User;
-import com.enesd.myshelfbackend.model.entities.UserSubscription;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;

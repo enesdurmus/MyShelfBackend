@@ -30,9 +30,9 @@ public class Collection extends Auditable {
     @Column(name = "is_public_view", nullable = false)
     private boolean isPublicView;
 
-    @OneToMany(mappedBy = "collection", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "collection", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<CollectionBook> collectionBooks = new HashSet<>();
 
-    @OneToMany(mappedBy = "collection", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "collection", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<CollectionMediaContent> collectionMediaContents = new HashSet<>();
 }

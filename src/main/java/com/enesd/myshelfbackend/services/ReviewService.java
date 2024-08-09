@@ -41,6 +41,8 @@ public class ReviewService {
 
     public List<ReviewDTO> getReviewsOfContent(ContentType contentType, Long contentId) {
         List<Review> reviews;
+
+        //TODO REFACTOR HERE --- CONSIDER STRATEGY PATTERN
         if (contentType == ContentType.BOOK) {
             reviews = reviewRepository.findAllByContentTypeAndBook(contentType, bookEntityRepository.getReferenceById(contentId));
         } else if (contentType == ContentType.MEDIA_CONTENT) {

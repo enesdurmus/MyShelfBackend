@@ -1,6 +1,5 @@
 package com.enesd.myshelfbackend.seeders;
 
-import com.enesd.myshelfbackend.enums.SubscriptionType;
 import com.enesd.myshelfbackend.model.entities.BookEntity;
 import com.enesd.myshelfbackend.model.entities.MediaContentEntity;
 import com.enesd.myshelfbackend.model.entities.Subscription;
@@ -14,7 +13,6 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.time.Instant;
 
 @Service
 @AllArgsConstructor
@@ -89,7 +87,6 @@ public class DatabaseSeeder {
     private void seedSubscriptions() {
         Subscription subscription = new Subscription();
         subscription.setAmount(5);
-        subscription.setSubscriptionType(SubscriptionType.RATE_LIMIT);
         subscription.setName("test");
         subscription.setDurationHours(1f);
         subscription.setPrice(BigDecimal.ONE);

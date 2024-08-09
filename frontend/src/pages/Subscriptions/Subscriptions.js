@@ -53,20 +53,6 @@ export default function Subscriptions() {
                 },
             },
             {
-                accessorKey: 'subscription_type',
-                header: 'Subscription Type',
-                muiEditTextFieldProps: {
-                    required: true,
-                    error: !!validationErrors?.firstName,
-                    helperText: validationErrors?.firstName,
-                    onFocus: () =>
-                        setValidationErrors({
-                            ...validationErrors,
-                            firstName: undefined,
-                        }),
-                },
-            },
-            {
                 accessorKey: 'duration_hours',
                 header: 'Duration Hours',
                 muiEditTextFieldProps: {
@@ -122,14 +108,12 @@ export default function Subscriptions() {
         setIsCreatingData(true);
         console.log({
             "name": values.values.name,
-            "subscription_type": values.values.subscription_type,
             "duration_hours": values.values.duration_hours,
             "amount": values.values.amount,
             "price": values.values.price
         });
         await subscriptionsService.createSubscription({
             "name": values.values.name,
-            "subscription_type": values.values.subscription_type,
             "duration_hours": values.values.duration_hours,
             "amount": values.values.amount,
             "price": values.values.price
