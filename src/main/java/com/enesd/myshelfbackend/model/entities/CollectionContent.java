@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.domain.Persistable;
 
 @Data
 @Entity
@@ -13,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "collections_contents")
 @AllArgsConstructor
 @NoArgsConstructor
-public class CollectionContent extends Auditable {
+public class CollectionContent extends Auditable implements Persistable<CollectionContentId> {
 
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
@@ -23,4 +24,14 @@ public class CollectionContent extends Auditable {
     @Id
     @Column(name = "content_id")
     private Long content;
+
+    @Override
+    public CollectionContentId getId() {
+        return new CollectionContentId(collection.getId(), content);
+    }
+
+    @Override
+    public boolean isNew() {
+        return true;
+    }
 }
