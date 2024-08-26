@@ -31,7 +31,7 @@ public class ReviewService {
         review.setContentType(createReviewRequest.getContentType());
         if (createReviewRequest.getContentType() == ContentType.BOOK) {
             review.setBook(bookEntityRepository.getReferenceById(createReviewRequest.getContentId()));
-        } else if (createReviewRequest.getContentType() == ContentType.MEDIA_CONTENT) {
+        } else if (createReviewRequest.getContentType() == ContentType.MEDIA) {
             review.setMediaContent(mediaContentEntityRepository.getReferenceById(createReviewRequest.getContentId()));
         } else {
             throw new RuntimeException("Content Type Not Found");
@@ -45,7 +45,7 @@ public class ReviewService {
         //TODO REFACTOR HERE --- CONSIDER STRATEGY PATTERN
         if (contentType == ContentType.BOOK) {
             reviews = reviewRepository.findAllByContentTypeAndBook(contentType, bookEntityRepository.getReferenceById(contentId));
-        } else if (contentType == ContentType.MEDIA_CONTENT) {
+        } else if (contentType == ContentType.MEDIA) {
             reviews = reviewRepository.findAllByContentTypeAndMediaContent(contentType, mediaContentEntityRepository.getReferenceById(contentId));
         } else {
             throw new RuntimeException("Content Type Not Found");
