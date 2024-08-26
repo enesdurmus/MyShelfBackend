@@ -1,11 +1,8 @@
 package com.enesd.myshelfbackend.jobs;
 
-import com.enesd.myshelfbackend.model.abstracts.Book;
 import com.enesd.myshelfbackend.model.abstracts.MediaContent;
-import com.enesd.myshelfbackend.model.documents.BookDocument;
 import com.enesd.myshelfbackend.model.documents.MediaContentDocument;
-import com.enesd.myshelfbackend.model.entities.BookEntity;
-import com.enesd.myshelfbackend.model.entities.MediaContentEntity;
+import com.enesd.myshelfbackend.model.entities.MediaEntity;
 import com.enesd.myshelfbackend.model.entities.SyncStatus;
 import com.enesd.myshelfbackend.repository.elasticsearch.MediaContentDocumentRepository;
 import com.enesd.myshelfbackend.repository.jpa.MediaContentEntityRepository;
@@ -51,7 +48,7 @@ public class ElasticMediaContentSync {
 
             do {
                 Pageable pageable = PageRequest.of(pageNumber, 100, Sort.by("updatedAt"));
-                List<MediaContentEntity> mediaContentEntities = mediaContentEntityRepository.findAllByUpdatedAtIsGreaterThanEqual(lastSyncTime, pageable);
+                List<MediaEntity> mediaContentEntities = mediaContentEntityRepository.findAllByUpdatedAtIsGreaterThanEqual(lastSyncTime, pageable);
                 if (!mediaContentEntities.isEmpty()) {
                     List<MediaContentDocument> mediaContentDocuments = mediaContentEntities
                             .stream()

@@ -8,10 +8,10 @@ import lombok.Data;
 @Data
 public class CreateCollectionRequest {
 
-    @NotEmpty
+    @NotEmpty(message = "Name can not be empty")
     private String name;
 
-    @NotNull
+    @NotNull(message = "Content type can not be null")
     private ContentType contentType;
 
 }

@@ -15,10 +15,6 @@ import java.util.UUID;
 @AllArgsConstructor
 public class CollectionService {
     private final CollectionRepository collectionRepository;
-    private final CollectionBookRepository collectionBookRepository;
-    private final CollectionMediaContentRepository collectionMediaContentRepository;
-    private final BookEntityRepository bookEntityRepository;
-    private final MediaContentEntityRepository mediaContentEntityRepository;
     private final UserRepository userRepository;
     private final CustomModelMapper modelMapper;
 

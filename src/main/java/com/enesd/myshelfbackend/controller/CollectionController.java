@@ -2,13 +2,11 @@ package com.enesd.myshelfbackend.controller;
 
 import com.enesd.myshelfbackend.dto.*;
 import com.enesd.myshelfbackend.model.entities.User;
-import com.enesd.myshelfbackend.model.request.AddContentToCollectionRequest;
 import com.enesd.myshelfbackend.model.request.CreateCollectionRequest;
 import com.enesd.myshelfbackend.model.response.GenericResponse;
 import com.enesd.myshelfbackend.services.CollectionService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 

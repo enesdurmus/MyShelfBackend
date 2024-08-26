@@ -1,7 +1,7 @@
 package com.enesd.myshelfbackend.seeders;
 
 import com.enesd.myshelfbackend.model.entities.BookEntity;
-import com.enesd.myshelfbackend.model.entities.MediaContentEntity;
+import com.enesd.myshelfbackend.model.entities.MediaEntity;
 import com.enesd.myshelfbackend.model.entities.Subscription;
 import com.enesd.myshelfbackend.repository.jpa.BookEntityRepository;
 import com.enesd.myshelfbackend.repository.jpa.MediaContentEntityRepository;
@@ -65,22 +65,22 @@ public class DatabaseSeeder {
                 this.faker = faker;
             }
 
-            public MediaContentEntity create() {
-                MediaContentEntity mediaContentEntity = new MediaContentEntity();
-                mediaContentEntity.setTitle(faker.book().title());
-                mediaContentEntity.setAdult(faker.bool().bool());
-                mediaContentEntity.setReleaseDate(faker.date().birthday().toInstant());
-                mediaContentEntity.setRevenue((long) faker.number().numberBetween(100, 100000000));
-                mediaContentEntity.setAverageRating((float) faker.number().randomDouble(10, 10, 1000));
-                mediaContentEntity.setRuntime(faker.number().randomDigit());
-                return mediaContentEntity;
+            public MediaEntity create() {
+                MediaEntity mediaEntity = new MediaEntity();
+                mediaEntity.setTitle(faker.book().title());
+                mediaEntity.setAdult(faker.bool().bool());
+                mediaEntity.setReleaseDate(faker.date().birthday().toInstant());
+                mediaEntity.setRevenue((long) faker.number().numberBetween(100, 100000000));
+                mediaEntity.setAverageRating((float) faker.number().randomDouble(10, 10, 1000));
+                mediaEntity.setRuntime(faker.number().randomDigit());
+                return mediaEntity;
             }
         }
 
         MediaContentCreator mediaContentCreator = new MediaContentCreator(faker);
         for (int i = 0; i < 20; i++) {
-            MediaContentEntity mediaContentEntity = mediaContentCreator.create();
-            mediaContentEntityRepository.save(mediaContentEntity);
+            MediaEntity mediaEntity = mediaContentCreator.create();
+            mediaContentEntityRepository.save(mediaEntity);
         }
     }
 

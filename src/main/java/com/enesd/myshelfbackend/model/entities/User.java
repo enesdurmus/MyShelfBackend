@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.*;
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 @Entity
 @Data
@@ -45,11 +46,7 @@ public class User extends Auditable implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-        for (Role role : roles) {
-            grantedAuthorities.add(new SimpleGrantedAuthority(role.toString()));
-        }
-        return grantedAuthorities;
+       return getRoles();
     }
 
     @Override

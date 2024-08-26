@@ -1,7 +1,7 @@
 package com.enesd.myshelfbackend.services;
 
 import com.enesd.myshelfbackend.model.documents.MediaContentDocument;
-import com.enesd.myshelfbackend.model.entities.MediaContentEntity;
+import com.enesd.myshelfbackend.model.entities.MediaEntity;
 import com.enesd.myshelfbackend.repository.elasticsearch.MediaContentDocumentRepository;
 import com.enesd.myshelfbackend.repository.jpa.MediaContentEntityRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -12,7 +12,7 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class MediaContentService {
+public class MediaService {
 
     private final MediaContentEntityRepository mediaContentEntityRepository;
     private final MediaContentDocumentRepository mediaContentDocumentRepository;
@@ -21,7 +21,7 @@ public class MediaContentService {
         return mediaContentDocumentRepository.findWithSearchTerm(searchTerm);
     }
 
-    public MediaContentEntity findMediaContentById(Long mediaContentId) {
+    public MediaEntity findMediaContentById(Long mediaContentId) {
         return mediaContentEntityRepository.findById(mediaContentId).orElseThrow(EntityNotFoundException::new);
     }
 }

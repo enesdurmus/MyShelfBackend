@@ -12,7 +12,7 @@ import java.time.Instant;
 
 @Entity
 @Table(name = "media_contents")
-public class MediaContentEntity extends MediaContent implements IAuditable {
+public class MediaEntity extends MediaContent implements IAuditable {
 
     @Column(name = "created_at")
     @CreationTimestamp

@@ -32,7 +32,7 @@ public class Review extends Auditable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "media_content_id")
-    private MediaContentEntity mediaContent;
+    private MediaEntity mediaContent;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
