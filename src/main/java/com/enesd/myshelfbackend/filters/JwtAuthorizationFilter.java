@@ -1,6 +1,6 @@
 package com.enesd.myshelfbackend.filters;
 
-import com.enesd.myshelfbackend.security.services.JwtService;
+import com.enesd.myshelfbackend.services.JwtService;
 import com.enesd.myshelfbackend.utils.AuthPathHelper;
 import com.enesd.myshelfbackend.utils.SwaggerPathHelper;
 import jakarta.servlet.FilterChain;

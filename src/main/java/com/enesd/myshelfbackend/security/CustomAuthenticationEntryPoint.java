@@ -1,4 +1,4 @@
-package com.enesd.myshelfbackend.security.config;
+package com.enesd.myshelfbackend.security;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -12,9 +12,8 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 
 @Component
-public class AuthEntryPoint implements AuthenticationEntryPoint {
-
-    private static final Logger logger = LoggerFactory.getLogger(AuthEntryPoint.class);
+public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint {
+    private static final Logger logger = LoggerFactory.getLogger(CustomAuthenticationEntryPoint.class);
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException)

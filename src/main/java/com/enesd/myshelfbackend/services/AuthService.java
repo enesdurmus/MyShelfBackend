@@ -3,19 +3,17 @@ package com.enesd.myshelfbackend.services;
 import com.enesd.myshelfbackend.dto.TokenDTO;
 import com.enesd.myshelfbackend.dto.SignInDTO;
 import com.enesd.myshelfbackend.dto.UserDTO;
-import com.enesd.myshelfbackend.enums.RoleType;
+import com.enesd.myshelfbackend.enums.Role;
 import com.enesd.myshelfbackend.model.entities.User;
 import com.enesd.myshelfbackend.model.request.RefreshTokenRequest;
 import com.enesd.myshelfbackend.model.request.SignInRequest;
 import com.enesd.myshelfbackend.model.request.SignUpRequest;
 import com.enesd.myshelfbackend.repository.jpa.UserRepository;
-import com.enesd.myshelfbackend.security.services.TokenService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +30,7 @@ public class AuthService {
     private final ModelMapper modelMapper;
 
     public SignInDTO signUp(SignUpRequest signUpRequest) {
-        Set<RoleType> defaultRoles = determineDefaultRoles();
+        Set<Role> defaultRoles = determineDefaultRoles();
 
         User user = new User();
         user.setEmail(signUpRequest.getEmail());
@@ -59,9 +57,9 @@ public class AuthService {
         return tokenService.refreshAccessToken(refreshTokenRequest.getRefreshToken());
     }
 
-    private Set<RoleType> determineDefaultRoles() {
-        Set<RoleType> defaultRoles = new HashSet<>();
-        defaultRoles.add(RoleType.USER);
+    private Set<Role> determineDefaultRoles() {
+        Set<Role> defaultRoles = new HashSet<>();
+        defaultRoles.add(Role.USER);
         return defaultRoles;
     }
 }

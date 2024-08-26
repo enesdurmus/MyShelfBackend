@@ -1,6 +1,6 @@
 package com.enesd.myshelfbackend.model.entities;
 
-import com.enesd.myshelfbackend.enums.RoleType;
+import com.enesd.myshelfbackend.enums.Role;
 import com.enesd.myshelfbackend.model.abstracts.Auditable;
 import com.github.javafaker.Faker;
 import jakarta.persistence.*;
@@ -35,7 +35,7 @@ public class User extends Auditable implements UserDetails {
     @CollectionTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id", nullable = false))
     @Column(name = "role_type")
-    private Set<RoleType> roles = new HashSet<>();
+    private Set<Role> roles = new HashSet<>();
 
     @OneToMany(mappedBy = "userId", fetch = FetchType.LAZY)
     private Set<Friendship> friendships;
@@ -46,8 +46,8 @@ public class User extends Auditable implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-        for (RoleType roleType : roles) {
-            grantedAuthorities.add(new SimpleGrantedAuthority(roleType.toString()));
+        for (Role role : roles) {
+            grantedAuthorities.add(new SimpleGrantedAuthority(role.toString()));
         }
         return grantedAuthorities;
     }

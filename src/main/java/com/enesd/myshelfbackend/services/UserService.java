@@ -10,6 +10,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,8 +20,7 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class UserService {
-
+public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
     private final CustomModelMapper modelMapper;
 
@@ -35,5 +37,11 @@ public class UserService {
                 pagingUser.getTotalPages(),
                 pagingUser.getTotalElements());
         return userPageDTO;
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        return userRepository.findByEmailWithRoles(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 }
