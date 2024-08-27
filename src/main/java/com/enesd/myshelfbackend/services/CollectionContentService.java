@@ -1,7 +1,6 @@
 package com.enesd.myshelfbackend.services;
 
 import com.enesd.myshelfbackend.model.abstracts.Content;
-import com.enesd.myshelfbackend.model.entities.BookEntity;
 import com.enesd.myshelfbackend.model.entities.Collection;
 import com.enesd.myshelfbackend.model.entities.CollectionContent;
 import com.enesd.myshelfbackend.model.request.AddContentToCollectionRequest;
@@ -12,9 +11,7 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
