@@ -32,11 +32,10 @@ public class UserService implements UserDetailsService {
     public UserPageDTO getUsersByPagination(int pageNo, int pageSize) {
         PageRequest pageRequest = PageRequest.of(pageNo, pageSize, Sort.by("createdAt").descending());
         Page<User> pagingUser = userRepository.findAll(pageRequest);
-        UserPageDTO userPageDTO = new UserPageDTO(
+        return new UserPageDTO(
                 modelMapper.mapAll(pagingUser.getContent(), UserDTO.class),
                 pagingUser.getTotalPages(),
                 pagingUser.getTotalElements());
-        return userPageDTO;
     }
 
     @Override

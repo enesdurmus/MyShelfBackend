@@ -2,20 +2,19 @@ package com.enesd.myshelfbackend.model.entities;
 
 import com.enesd.myshelfbackend.enums.Role;
 import com.enesd.myshelfbackend.model.abstracts.Auditable;
-import com.github.javafaker.Faker;
+import com.enesd.myshelfbackend.model.listeners.UserEntityListener;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.*;
 import java.util.Collection;
-import java.util.stream.Collectors;
 
 @Entity
 @Data
 @Table(name = "users")
+@EntityListeners(UserEntityListener.class)
 public class User extends Auditable implements UserDetails {
 
     @Id
@@ -46,18 +45,12 @@ public class User extends Auditable implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-       return getRoles();
+        return getRoles();
     }
 
     @Override
     public String getUsername() {
         return email;
-    }
-
-    @PrePersist
-    private void beforePersist() {
-        Faker faker = new Faker();
-        displayName = "user_" + faker.number().digits(12);
     }
 
     @Override
