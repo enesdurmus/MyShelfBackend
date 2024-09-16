@@ -7,9 +7,8 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RabbitMQConfig {
-
     @Bean
-    public Queue firstQueue() {
+    public Queue displayNameSyncQueue() {
         return new Queue(RabbitMQQueueNames.DISPLAY_NAME_SYNC_QUEUE, false);
     }
 }
