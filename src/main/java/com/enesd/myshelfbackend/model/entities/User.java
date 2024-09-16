@@ -31,6 +31,9 @@ public class User extends Auditable implements UserDetails {
     @Column(name = "display_name", nullable = false)
     private String displayName;
 
+    @Transient
+    private String oldDisplayName;
+
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id", nullable = false))
